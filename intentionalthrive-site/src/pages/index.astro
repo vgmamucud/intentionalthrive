@@ -1,0 +1,257 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Intentional Thrive — Design Your Financial Life">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="pill">For Filipino Professionals</span>
+      <h1 class="hero__title">Done drifting.<br />Ready to design.</h1>
+      <p class="hero__sub">Intentional Thrive is a space for Filipino professionals who want to understand their money, protect what matters, and build a life that's designed on their own terms — not just survived.</p>
+      <div class="hero__actions">
+        <a href="/blog" class="btn btn--primary">Read the articles</a>
+        <a href="/about" class="btn btn--outline">About Venus</a>
+      </div>
+    </div>
+    <div class="hero__leaf" aria-hidden="true">🌿</div>
+  </section>
+
+  <!-- What this space is -->
+  <section class="pillars">
+    <div class="container--wide">
+      <p class="section__label">What we talk about</p>
+      <div class="pillars__grid">
+        <div class="pillar-card">
+          <div class="pillar-card__icon">🧠</div>
+          <h3>Money Mindset</h3>
+          <p>The invisible scripts that run your financial decisions — and how to rewrite them.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-card__icon">🛡️</div>
+          <h3>Wealth in Practice</h3>
+          <p>Insurance, protection, and investing — explained clearly, without the sales pressure.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-card__icon">🌿</div>
+          <h3>Intentional Living</h3>
+          <p>Designing your life as a working professional, parent, and person with goals.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-card__icon">✍️</div>
+          <h3>The Journey</h3>
+          <p>Venus building this in real time — wins, lessons, and the honest middle ground.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Articles -->
+  <section class="featured">
+    <div class="container--wide">
+      <p class="section__label">Start here</p>
+      <h2 class="section__title">Recent Articles</h2>
+      <div class="grid--articles">
+
+        <a href="/blog/article-1" class="card card--link">
+          <span class="card__tag">Money Mindset</span>
+          <div class="card__title">Money Didn't Change Me. My Relationship With It Did.</div>
+          <p class="card__excerpt">More money doesn't fix a broken money pattern — it amplifies it. Here's what actually changed everything.</p>
+          <div class="card__meta">Week 1 · 6 min read</div>
+        </a>
+
+        <a href="/blog/article-2" class="card card--link">
+          <span class="card__tag">Intentional Living</span>
+          <div class="card__title">How I Manage a Team, 600 Clients, and a Toddler — And Still Have a Plan</div>
+          <p class="card__excerpt">It's not about having it all together. It's about designing what matters and accepting the mess.</p>
+          <div class="card__meta">Week 2 · 7 min read</div>
+        </a>
+
+        <a href="/blog/article-3" class="card card--link">
+          <span class="card__tag">Wealth in Practice</span>
+          <div class="card__title">The Filipino Professional's Guide to Not Starting Over at 40</div>
+          <p class="card__excerpt">You're earning. So why doesn't your savings reflect it? The three things every professional needs in place.</p>
+          <div class="card__meta">Week 3 · 6 min read</div>
+        </a>
+
+        <a href="/blog/article-4" class="card card--link">
+          <span class="card__tag">Wealth in Practice</span>
+          <div class="card__title">What Life Insurance Actually Is (And Why Your Agent Never Explained It This Way)</div>
+          <p class="card__excerpt">Most people buy insurance because a friend asked them to. Very few understand what they actually own.</p>
+          <div class="card__meta">Week 4 · 7 min read</div>
+        </a>
+
+        <a href="/blog/article-5" class="card card--link">
+          <span class="card__tag">The Journey</span>
+          <div class="card__title">I'm Building This in Public. Here's Why.</div>
+          <p class="card__excerpt">Transparency is rare in Philippine financial services. That's exactly why I'm choosing it.</p>
+          <div class="card__meta">Week 5 · 5 min read</div>
+        </a>
+
+      </div>
+      <div style="text-align:center; margin-top:2.5rem;">
+        <a href="/blog" class="btn btn--outline">All articles →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About strip -->
+  <section class="about-strip">
+    <div class="container">
+      <div class="about-strip__inner">
+        <div class="about-strip__avatar">V</div>
+        <div>
+          <h3>Hi, I'm Venus.</h3>
+          <p>I'm a Pru Life UK Unit Manager, a mom, a wife, and someone who spent years in the financial industry before I started asking better questions about my own money. Intentional Thrive is how I share what I've learned — and what I'm still figuring out.</p>
+          <a href="/about" class="btn btn--primary" style="margin-top:1rem; display:inline-block;">More about me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+/* Hero */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #eaf2ec 0%, #f2ede4 60%, #faf8f4 100%);
+  padding: 6rem 0 5rem;
+  overflow: hidden;
+}
+
+.hero__title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  margin: 1rem 0 1.25rem;
+  line-height: 1.15;
+}
+
+.hero__sub {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  max-width: 560px;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero__leaf {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 8rem;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Section labels */
+.section__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.section__title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 0.25rem;
+}
+
+/* Pillars */
+.pillars {
+  padding: 5rem 0;
+  background: var(--color-surface);
+}
+
+.pillars__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.pillar-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.pillar-card__icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.pillar-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.pillar-card p {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Featured */
+.featured {
+  padding: 5rem 0;
+}
+
+.card--link {
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+/* About strip */
+.about-strip {
+  background: var(--color-accent-pale);
+  padding: 4rem 0;
+}
+
+.about-strip__inner {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.about-strip__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.about-strip__inner h3 {
+  margin-bottom: 0.5rem;
+}
+
+.about-strip__inner p {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  max-width: 540px;
+}
+
+@media (max-width: 640px) {
+  .about-strip__inner { flex-direction: column; }
+  .hero__leaf { display: none; }
+}
+</style>

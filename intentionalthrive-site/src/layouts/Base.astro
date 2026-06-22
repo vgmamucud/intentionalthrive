@@ -1,0 +1,71 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { title, description = "A space for Filipino professionals who are done drifting and ready to design their financial lives on their own terms.", ogImage } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <title>{title}</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href={new URL('/styles/global.css', Astro.site).href} />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">Intentional <span>Thrive</span></a>
+      <ul class="nav__links">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Articles</a></li>
+        <li><a href="/about#connect">Connect</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <slot />
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__logo">Intentional Thrive</div>
+      <p class="footer__tagline">For the Filipino professional who's done drifting and ready to design.</p>
+      <ul class="footer__links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Articles</a></li>
+        <li><a href="/about#connect">Connect</a></li>
+      </ul>
+      <p class="footer__copy">© 2026 Intentional Thrive · Venus · All rights reserved</p>
+    </div>
+  </footer>
+
+</body>
+</html>
