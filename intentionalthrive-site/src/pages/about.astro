@@ -1,0 +1,172 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="About Venus — Intentional Thrive"
+  description="Unit Manager at Pru Life UK, founder of Intentional Thrive. Writing about money mindset, wealth planning, and intentional living for Filipino professionals."
+>
+
+  <!-- Header -->
+  <header class="page-header">
+    <div class="container">
+      <span class="pill">About</span>
+      <h1 style="margin-top: 0.75rem;">Hi, I'm Venus.</h1>
+      <p class="page-header__sub">Unit Manager · Pru Life UK · Founder, Intentional Thrive</p>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 3rem; padding-bottom: 4rem;">
+
+    <div class="about-layout">
+
+      <!-- Avatar -->
+      <div class="about-avatar-col">
+        <div class="about-avatar">V</div>
+        <div class="about-quick">
+          <div class="about-quick__item">
+            <span class="about-quick__label">Role</span>
+            <span>Unit Manager, Pru Life UK</span>
+          </div>
+          <div class="about-quick__item">
+            <span class="about-quick__label">In the industry</span>
+            <span>Since 2019</span>
+          </div>
+          <div class="about-quick__item">
+            <span class="about-quick__label">Policies under care</span>
+            <span>600+</span>
+          </div>
+          <div class="about-quick__item">
+            <span class="about-quick__label">Based in</span>
+            <span>Philippines</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio -->
+      <div class="prose about-prose">
+
+        <p>I've been in the financial services industry since 2019. In that time, I've sat across from hundreds of clients making some of the most important decisions of their lives — about protection, about legacy, about what happens to the people they love if something goes wrong.</p>
+
+        <p>I became a unit manager in 2023, which meant adding a new layer: not just serving clients, but building and leading a team of agents. It's a different kind of responsibility. You're not just protecting other people's futures anymore — you're helping shape other people's careers.</p>
+
+        <p>In the middle of all of that, I'm also a wife to Joe and a mom to Aki, who is three and has very strong opinions about the color of his cup.</p>
+
+        <h2>Why I started Intentional Thrive</h2>
+
+        <p>Years into this work, I noticed a pattern — not just in my clients, but in myself.</p>
+
+        <p>We were all doing the things. Buying the coverage. Setting up the plans. Earning more than we used to. And yet so many of us still felt like we were behind. Like the financial life we wanted was always just out of reach, no matter how much the numbers grew.</p>
+
+        <p>I started to understand that strategy without mindset just amplifies what's already there. If you're running an old money story — one you inherited before you were ten — no amount of income, investment, or insurance will feel like enough until that story changes.</p>
+
+        <p>Intentional Thrive is my attempt to bridge that gap. Not just the products and the plans, but the thinking underneath them. The questions you should be asking yourself before any financial decision. The clarity about what you're actually protecting and building — and why.</p>
+
+        <h2>What this space is for</h2>
+
+        <p>It's for the Filipino professional who is earning but not yet building. Who is busy but not yet clear. Who knows they should be doing more with their money but doesn't know where to start — or feels too overwhelmed to begin.</p>
+
+        <p>It's for the working mom who carries a lot and rarely says so. The young professional who bought an insurance policy because a friend asked and still doesn't fully understand what they own. The high earner who, if they're honest, doesn't feel financially secure.</p>
+
+        <p>I write here about money mindset, about what wealth actually looks like in practice, about intentional living, and about the real process of building something — including the parts that don't go perfectly.</p>
+
+        <p>I'm not writing from a finished place. I'm writing from the middle of the journey, which I think is far more useful.</p>
+
+        <h2 id="connect">Let's connect</h2>
+
+        <p>If you're a Filipino professional ready to start designing your financial life with intention — or if you just want to follow along as I build this — I'd love to have you here.</p>
+
+        <p>You can also find me on:</p>
+        <ul>
+          <li><strong>Facebook:</strong> Personal page (helloitsvenus) and Life Ready with Venus</li>
+          <li><strong>Instagram:</strong> @helloitsvenus</li>
+          <li><strong>LinkedIn:</strong> Venus | Unit Manager, Pru Life UK</li>
+        </ul>
+
+        <p>If you have a question about your financial situation, your coverage, or just want to start a conversation — reach out. No pitch. No quota. Just clarity.</p>
+
+        <a href="mailto:hello@intentionalthrive.com" class="btn btn--primary" style="margin-top: 0.5rem; display: inline-block;">Say hello →</a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</Base>
+
+<style>
+.page-header {
+  background: linear-gradient(135deg, #eaf2ec 0%, #f2ede4 100%);
+  padding: 4rem 0 3rem;
+}
+
+.page-header__sub {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.about-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.about-quick {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.about-quick__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-size: 0.85rem;
+}
+
+.about-quick__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.about-prose {
+  max-width: 640px;
+}
+
+@media (max-width: 640px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+  }
+  .about-avatar-col {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .about-avatar {
+    width: 72px;
+    height: 72px;
+    font-size: 1.75rem;
+    margin-bottom: 0;
+  }
+}
+</style>
