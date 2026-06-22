@@ -1,0 +1,97 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Articles — Intentional Thrive"
+  description="Money mindset, wealth planning, and intentional living for Filipino professionals."
+>
+
+  <header class="page-header">
+    <div class="container">
+      <span class="pill">Articles</span>
+      <h1 style="margin-top:0.75rem;">Read. Think. Design.</h1>
+      <p class="page-header__sub">Money mindset, wealth in practice, intentional living, and the journey — all in one place.</p>
+    </div>
+  </header>
+
+  <main class="container--wide" style="padding: 3rem 1.5rem 5rem;">
+
+    <div class="filter-bar">
+      <span class="filter-bar__label">Filter by pillar:</span>
+      <a href="#all" class="pill active">All</a>
+      <a href="#mindset" class="pill">Money Mindset</a>
+      <a href="#wealth" class="pill">Wealth in Practice</a>
+      <a href="#living" class="pill">Intentional Living</a>
+      <a href="#journey" class="pill">The Journey</a>
+    </div>
+
+    <div class="grid--articles" style="margin-top:2rem;">
+
+      <a href="/blog/article-1" class="card card--link">
+        <span class="card__tag">Money Mindset</span>
+        <div class="card__title">Money Didn't Change Me. My Relationship With It Did.</div>
+        <p class="card__excerpt">More money doesn't fix a broken money pattern — it amplifies it. Here's what actually changed everything.</p>
+        <div class="card__meta">6 min read</div>
+      </a>
+
+      <a href="/blog/article-2" class="card card--link">
+        <span class="card__tag">Intentional Living</span>
+        <div class="card__title">How I Manage a Team, 600 Clients, and a Toddler — And Still Have a Plan</div>
+        <p class="card__excerpt">It's not about having it all together. It's about designing what matters and accepting the mess.</p>
+        <div class="card__meta">7 min read</div>
+      </a>
+
+      <a href="/blog/article-3" class="card card--link">
+        <span class="card__tag">Wealth in Practice</span>
+        <div class="card__title">The Filipino Professional's Guide to Not Starting Over at 40</div>
+        <p class="card__excerpt">You're earning. So why doesn't your savings reflect it? Three non-negotiables every professional needs in place.</p>
+        <div class="card__meta">6 min read</div>
+      </a>
+
+      <a href="/blog/article-4" class="card card--link">
+        <span class="card__tag">Wealth in Practice</span>
+        <div class="card__title">What Life Insurance Actually Is (And Why Your Agent Never Explained It This Way)</div>
+        <p class="card__excerpt">Most people buy insurance because a friend asked them to. Very few understand what they actually own.</p>
+        <div class="card__meta">7 min read</div>
+      </a>
+
+      <a href="/blog/article-5" class="card card--link">
+        <span class="card__tag">The Journey</span>
+        <div class="card__title">I'm Building This in Public. Here's Why.</div>
+        <p class="card__excerpt">Transparency is rare in Philippine financial services. That's exactly why I'm choosing it.</p>
+        <div class="card__meta">5 min read</div>
+      </a>
+
+    </div>
+  </main>
+
+</Base>
+
+<style>
+.page-header {
+  background: linear-gradient(135deg, #eaf2ec 0%, #f2ede4 100%);
+  padding: 4rem 0 3rem;
+}
+.page-header__sub {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+.filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.filter-bar__label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-right: 0.25rem;
+}
+.card--link {
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+</style>

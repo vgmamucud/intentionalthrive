@@ -1,0 +1,162 @@
+---
+import Base from './Base.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  pubDate: string;
+  pillar: string;
+  readTime: string;
+}
+
+const { title, description, pubDate, pillar, readTime } = Astro.props;
+
+const pillarColors: Record<string, string> = {
+  'Money Mindset': '#4a7c59',
+  'Wealth in Practice': '#6b7c3a',
+  'Intentional Living': '#7a5c3a',
+  'The Journey': '#3a5c7a',
+};
+---
+
+<Base title={`${title} — Intentional Thrive`} description={description}>
+
+  <main>
+    <!-- Article Header -->
+    <header class="article-header">
+      <div class="container">
+        <span class="card__tag">{pillar}</span>
+        <h1 class="article-header__title">{title}</h1>
+        <p class="article-header__desc">{description}</p>
+        <div class="article-header__meta">
+          <span>{pubDate}</span>
+          <span class="article-header__dot">·</span>
+          <span>{readTime} read</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Article Body -->
+    <article class="container">
+      <div class="prose article-body">
+        <slot />
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Author bio -->
+      <div class="author-card">
+        <div class="author-card__avatar">V</div>
+        <div>
+          <div class="author-card__name">Venus</div>
+          <div class="author-card__bio">Pru Life UK Unit Manager · Founder, Intentional Thrive · Writing about money mindset, wealth planning, and intentional living for Filipino professionals.</div>
+          <a href="/about" class="author-card__link">More about Venus →</a>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="article-cta">
+        <h3>More on Intentional Thrive</h3>
+        <p>Articles on money mindset, wealth planning, and designing life with intention — for the Filipino professional who's ready to start.</p>
+        <a href="/blog" class="btn btn--primary">Read more articles</a>
+      </div>
+    </article>
+  </main>
+
+</Base>
+
+<style>
+.article-header {
+  background: linear-gradient(135deg, #eaf2ec 0%, #f2ede4 100%);
+  padding: 4rem 0 3rem;
+  margin-bottom: 3rem;
+}
+
+.article-header__title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  margin: 0.75rem 0;
+  max-width: 680px;
+}
+
+.article-header__desc {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin-bottom: 1.25rem;
+}
+
+.article-header__meta {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.article-header__dot {
+  margin: 0 0.5rem;
+}
+
+.article-body {
+  padding-bottom: 2rem;
+}
+
+.author-card {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  background: var(--color-bg-alt);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.author-card__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.author-card__name {
+  font-weight: 600;
+  color: var(--color-heading);
+  margin-bottom: 0.3rem;
+}
+
+.author-card__bio {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.author-card__link {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.article-cta {
+  background: var(--color-heading);
+  color: #c8d4cb;
+  border-radius: 8px;
+  padding: 2.5rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.article-cta h3 {
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.article-cta p {
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+</style>
