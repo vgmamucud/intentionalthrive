@@ -77,11 +77,12 @@ import Base from '../layouts/Base.astro';
         <p>If you're a Filipino professional ready to start designing your financial life with intention — or if you just want to follow along as I build this — I'd love to have you here.</p>
 
         <p>You can also find me on:</p>
-        <ul>
-          <li><strong>Facebook:</strong> Personal page (helloitsvenus) and Life Ready with Venus</li>
-          <li><strong>Instagram:</strong> @helloitsvenus</li>
-          <li><strong>LinkedIn:</strong> Venus | Unit Manager, Pru Life UK</li>
-        </ul>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/helloitsvenus" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-icon"><i class="ti ti-brand-facebook" aria-hidden="true"></i></a>
+          <a href="https://www.instagram.com/helloitsvenus" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon"><i class="ti ti-brand-instagram" aria-hidden="true"></i></a>
+          <a href="https://www.linkedin.com/in/venusmamucud" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon"><i class="ti ti-brand-linkedin" aria-hidden="true"></i></a>
+          <a href="mailto:venus@intentionalthrive.com" aria-label="Email" class="social-icon"><i class="ti ti-mail" aria-hidden="true"></i></a>
+        </div>
 
         <p>If you have a question about your financial situation, your coverage, or just want to start a conversation — reach out. No pitch. No quota. Just clarity.</p>
 
@@ -151,6 +152,33 @@ import Base from '../layouts/Base.astro';
 
 .about-prose {
   max-width: 640px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.social-icon {
+  width: 42px;
+  height: 42px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.social-icon:hover {
+  background: var(--color-accent-pale);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 @media (max-width: 640px) {

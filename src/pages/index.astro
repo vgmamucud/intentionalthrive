@@ -24,22 +24,22 @@ import Base from '../layouts/Base.astro';
       <p class="section__label">What we talk about</p>
       <div class="pillars__grid">
         <div class="pillar-card">
-          <div class="pillar-card__icon">🧠</div>
+          <div class="pillar-card__icon"><i class="ti ti-brain" aria-hidden="true"></i></div>
           <h3>Money Mindset</h3>
           <p>The invisible scripts that run your financial decisions — and how to rewrite them.</p>
         </div>
         <div class="pillar-card">
-          <div class="pillar-card__icon">🛡️</div>
+          <div class="pillar-card__icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
           <h3>Wealth in Practice</h3>
           <p>Insurance, protection, and investing — explained clearly, without the sales pressure.</p>
         </div>
         <div class="pillar-card">
-          <div class="pillar-card__icon">🌿</div>
+          <div class="pillar-card__icon"><i class="ti ti-leaf" aria-hidden="true"></i></div>
           <h3>Intentional Living</h3>
           <p>Designing your life as a working professional, parent, and person with goals.</p>
         </div>
         <div class="pillar-card">
-          <div class="pillar-card__icon">✍️</div>
+          <div class="pillar-card__icon"><i class="ti ti-pencil" aria-hidden="true"></i></div>
           <h3>The Journey</h3>
           <p>Venus building this in real time — wins, lessons, and the honest middle ground.</p>
         </div>
@@ -187,8 +187,16 @@ import Base from '../layouts/Base.astro';
 }
 
 .pillar-card__icon {
-  font-size: 1.75rem;
+  width: 38px;
+  height: 38px;
+  background: var(--color-accent-pale);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 0.75rem;
+  color: var(--color-accent);
+  font-size: 1.2rem;
 }
 
 .pillar-card h3 {

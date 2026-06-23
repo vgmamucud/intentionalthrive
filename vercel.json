@@ -5,7 +5,7 @@
   "framework": "astro",
   "rewrites": [
     {
-      "source": "/",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "content.intentionalthrive.com" }],
       "destination": "/content/index.html"
     }
