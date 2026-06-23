@@ -43,8 +43,15 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4 {
+h1, h2 {
+  font-family: var(--font-serif);
+  color: var(--color-heading);
+  line-height: 1.25;
+}
+
+h3, h4 {
   font-family: var(--font-sans);
+  font-weight: 600;
   color: var(--color-heading);
   line-height: 1.25;
 }
