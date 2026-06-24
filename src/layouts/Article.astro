@@ -7,16 +7,10 @@ export interface Props {
   pubDate: string;
   pillar: string;
   readTime: string;
+  heroImage?: string;
 }
 
-const { title, description, pubDate, pillar, readTime } = Astro.props;
-
-const pillarColors: Record<string, string> = {
-  'Money Mindset': '#4a7c59',
-  'Wealth in Practice': '#6b7c3a',
-  'Intentional Living': '#7a5c3a',
-  'The Journey': '#3a5c7a',
-};
+const { title, description, pubDate, pillar, readTime, heroImage } = Astro.props;
 ---
 
 <Base title={`${title} — Intentional Thrive`} description={description}>
@@ -35,6 +29,12 @@ const pillarColors: Record<string, string> = {
         </div>
       </div>
     </header>
+
+    {heroImage && (
+      <div class="hero-image-wrap">
+        <img src={heroImage} alt={title} class="hero-image" />
+      </div>
+    )}
 
     <!-- Article Body -->
     <article class="container">
@@ -92,6 +92,21 @@ const pillarColors: Record<string, string> = {
 
 .article-header__dot {
   margin: 0 0.5rem;
+}
+
+.hero-image-wrap {
+  max-width: 780px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
 }
 
 .article-body {

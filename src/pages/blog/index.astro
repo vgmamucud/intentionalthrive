@@ -33,6 +33,9 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft))
     <div class="grid--articles" style="margin-top:2rem;">
       {articles.map(article => (
         <a href={`/blog/${article.slug}`} class="card card--link">
+          {article.data.heroImage && (
+            <img src={article.data.heroImage} alt={article.data.title} class="card__thumb" />
+          )}
           <span class="card__tag">{article.data.pillar}</span>
           <div class="card__title">{article.data.title}</div>
           <p class="card__excerpt">{article.data.description}</p>
@@ -69,5 +72,14 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft))
   text-decoration: none;
   display: block;
   color: inherit;
+}
+
+.card__thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  display: block;
 }
 </style>

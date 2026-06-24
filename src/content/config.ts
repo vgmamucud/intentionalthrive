@@ -9,6 +9,7 @@ const articles = defineCollection({
     pillar: z.enum(['Money Mindset', 'Wealth in Practice', 'Intentional Living', 'The Journey']),
     readTime: z.string(),
     draft: z.boolean().default(false),
+    heroImage: z.string().optional(),
   }),
 });
 
