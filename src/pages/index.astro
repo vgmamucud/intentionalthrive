@@ -151,15 +151,40 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
 <style>
 .brand-hero {
   background:
-    linear-gradient(135deg, rgba(24, 48, 40, 0.96), rgba(16, 27, 23, 0.98)),
+    linear-gradient(135deg, rgba(24, 48, 40, 0.64), rgba(16, 27, 23, 0.7)),
     url('/images/intentional-thrive-planning.png');
   background-position: center;
   background-size: cover;
   color: #fff;
+  overflow: hidden;
   padding: 108px 0 92px;
+  position: relative;
+}
+
+.brand-hero::before {
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.06) 38%, transparent 68%),
+    linear-gradient(180deg, rgba(214, 189, 120, 0.1), transparent 42%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.brand-hero::after {
+  background: linear-gradient(180deg, transparent 0%, rgba(16, 27, 23, 0.18) 100%);
+  bottom: 0;
+  content: "";
+  height: 34%;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
 }
 
 .hero-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 390px;
   gap: 56px;
@@ -212,14 +237,15 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
 
 .hero-panel {
   background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 20px;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   color: var(--color-dark) !important;
   padding: 28px;
 }
 
 .panel-header {
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(214, 189, 120, 0.38);
   margin-bottom: 22px;
   padding-bottom: 18px;
 }
@@ -259,15 +285,16 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
 }
 
 .readiness-row div {
-  background: #edf5ef;
+  background: linear-gradient(90deg, #edf5ef, #f7faf8);
   border-radius: 999px;
   height: 10px;
   overflow: hidden;
 }
 
 .readiness-row i {
-  background: var(--color-accent);
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
   border-radius: inherit;
+  box-shadow: 0 0 18px rgba(79, 129, 95, 0.2);
   display: block;
   height: 100%;
 }
@@ -279,7 +306,7 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
 }
 
 .proof-band {
-  background: #fff;
+  background: linear-gradient(180deg, #ffffff 0%, #f7faf8 100%);
   border-bottom: 1px solid var(--color-border);
   padding: 28px 0;
 }
@@ -291,7 +318,7 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
 }
 
 .proof-grid div {
-  border-left: 3px solid var(--color-accent);
+  border-left: 3px solid rgba(214, 189, 120, 0.72);
   padding-left: 16px;
 }
 
@@ -315,10 +342,27 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
   padding: 88px 0;
 }
 
+.clarity-map,
+.guide-section {
+  background:
+    linear-gradient(140deg, rgba(79, 129, 95, 0.08), transparent 34%),
+    var(--color-bg);
+}
+
 .section-heading {
   margin: 0 auto 46px;
   max-width: 720px;
+  position: relative;
   text-align: center;
+}
+
+.section-heading::after {
+  background: linear-gradient(90deg, transparent, rgba(214, 189, 120, 0.86), transparent);
+  content: "";
+  display: block;
+  height: 1px;
+  margin: 24px auto 0;
+  max-width: 220px;
 }
 
 .section-heading.compact {
@@ -351,7 +395,15 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: 18px;
+  box-shadow: 0 18px 42px rgba(24, 48, 40, 0.06);
   padding: 30px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.map-grid article:hover {
+  border-color: rgba(79, 129, 95, 0.34);
+  box-shadow: 0 22px 56px rgba(24, 48, 40, 0.1);
+  transform: translateY(-3px);
 }
 
 .map-grid span {
@@ -389,16 +441,22 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
 
 .decision-card {
   border-radius: 20px;
+  box-shadow: 0 18px 48px rgba(24, 48, 40, 0.08);
   padding: 42px;
 }
 
 .decision-card.primary {
-  background: var(--color-accent-pale);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(237, 245, 239, 0.94)),
+    var(--color-accent-pale);
   border: 1px solid rgba(79, 129, 95, 0.24);
 }
 
 .decision-card.dark {
-  background: var(--color-dark);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 46%),
+    var(--color-dark);
+  border: 1px solid rgba(214, 189, 120, 0.2);
 }
 
 .decision-card.dark h2,
@@ -421,10 +479,6 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
   color: #fff;
 }
 
-.guide-section {
-  background: var(--color-bg);
-}
-
 .guide-grid {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -436,6 +490,7 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: 18px;
+  box-shadow: 0 18px 48px rgba(24, 48, 40, 0.07);
   padding: 34px;
 }
 
@@ -457,16 +512,18 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
 }
 
 .article-card {
-  background: var(--color-bg);
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
   border: 1px solid var(--color-border);
   border-radius: 18px;
+  box-shadow: 0 14px 36px rgba(24, 48, 40, 0.05);
   color: inherit;
   padding: 26px;
-  transition: transform 0.2s, border-color 0.2s;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
 .article-card:hover {
   border-color: rgba(79, 129, 95, 0.45);
+  box-shadow: 0 22px 52px rgba(24, 48, 40, 0.1);
   color: inherit;
   transform: translateY(-3px);
 }
@@ -480,9 +537,23 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
 }
 
 .final-banner {
-  background: var(--color-accent);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 44%),
+    var(--color-accent);
+  overflow: hidden;
   padding: 84px 0;
+  position: relative;
   text-align: center;
+}
+
+.final-banner::before {
+  background: linear-gradient(90deg, transparent, rgba(214, 189, 120, 0.32), transparent);
+  content: "";
+  height: 1px;
+  left: 12%;
+  position: absolute;
+  right: 12%;
+  top: 0;
 }
 
 .final-banner .eyebrow,
