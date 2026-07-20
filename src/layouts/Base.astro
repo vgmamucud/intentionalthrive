@@ -43,9 +43,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <div class="nav__inner">
       <a href="/" class="nav__logo">Intentional <span>Thrive</span></a>
       <ul class="nav__links">
+        <li><a href="/about#connect">Free Assessment</a></li>
+        <li><a href="/#career">Join the Team</a></li>
         <li><a href="/about">About</a></li>
-        <li><a href="/blog">Articles</a></li>
-        <li><a href="/about#connect">Connect</a></li>
+        <li><a href="/blog" class="nav__cta">Articles →</a></li>
       </ul>
     </div>
   </nav>
@@ -60,6 +61,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <p class="footer__tagline">For the Filipino professional who's done drifting and ready to design.</p>
       <ul class="footer__links">
         <li><a href="/">Home</a></li>
+        <li><a href="/about#connect">Free Assessment</a></li>
+        <li><a href="/#career">Join the Team</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/blog">Articles</a></li>
         <li><a href="/about#connect">Connect</a></li>
