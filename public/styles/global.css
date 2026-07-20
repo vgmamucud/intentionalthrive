@@ -6,15 +6,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap');
 
 :root {
-  --color-bg: #f7f7f5;
-  --color-bg-alt: #fae4d3;
+  --color-bg: #f7faf8;
+  --color-bg-alt: #edf5ef;
   --color-surface: #ffffff;
-  --color-border: #e7e2dc;
+  --color-border: #dce8df;
   --color-text: #252525;
   --color-text-muted: #666666;
-  --color-accent: #e87722;
-  --color-accent-light: #f59a51;
-  --color-accent-pale: #fff1e7;
+  --color-accent: #4f815f;
+  --color-accent-light: #6fa17d;
+  --color-accent-pale: #edf5ef;
+  --color-gold: #d6bd78;
   --color-heading: #183028;
   --color-dark: #183028;
   --color-dark-alt: #101b17;
@@ -45,18 +46,11 @@ body {
 }
 
 /* Typography */
-h1, h2 {
-  font-family: var(--font-sans);
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
   font-weight: 800;
   color: var(--color-heading);
-  line-height: 1.05;
-}
-
-h3, h4 {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  color: var(--color-heading);
-  line-height: 1.25;
+  line-height: 1.08;
 }
 
 h1 { font-size: clamp(2rem, 5vw, 3rem); }
@@ -150,7 +144,7 @@ em { font-style: italic; }
 }
 
 .nav__cta:hover {
-  background: #d86616;
+  background: #3f6f50;
   color: #fff !important;
 }
 
@@ -213,11 +207,11 @@ em { font-style: italic; }
 .btn--primary {
   background: var(--color-accent);
   color: #fff;
-  box-shadow: 0 12px 26px rgba(232, 119, 34, 0.2);
+  box-shadow: 0 12px 26px rgba(79, 129, 95, 0.22);
 }
 
 .btn--primary:hover {
-  background: #d86616;
+  background: #3f6f50;
   color: #fff;
   transform: translateY(-1px);
 }
