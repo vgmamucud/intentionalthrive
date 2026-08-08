@@ -1,0 +1,68 @@
+---
+/**
+ * The Thrive Path — Intentional Thrive's signature graphic.
+ *
+ * One continuous line that starts flat and uncertain, steps up at each decision,
+ * and keeps rising: Understand -> Decide -> Build. Drawn as a single stroke so it
+ * stays quiet next to type. Never more than one per screenful.
+ *
+ * rule    — short divider under a section heading
+ * journey — wide three-node path used behind the core journey
+ * mark    — oversized watermark for full-bleed bands
+ */
+export interface Props {
+  variant?: 'rule' | 'journey' | 'mark';
+  class?: string;
+}
+
+const { variant = 'rule', class: className } = Astro.props;
+---
+
+{variant === 'rule' && (
+  <svg class:list={['thrive-path thrive-path--rule', className]} viewBox="0 0 180 20" fill="none" aria-hidden="true">
+    <path d="M0 16h58c22 0 20-12 42-12h80" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  </svg>
+)}
+
+{variant === 'journey' && (
+  <svg class:list={['thrive-path thrive-path--journey', className]} viewBox="0 0 1120 96" fill="none" aria-hidden="true">
+    <path
+      d="M0 78h96c60 0 74-30 134-30h130c60 0 74-24 134-24h130c60 0 74-18 134-18h362"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+    />
+    <circle cx="160" cy="63" r="5" fill="currentColor" />
+    <circle cx="560" cy="39" r="5" fill="currentColor" />
+    <circle cx="960" cy="21" r="5" fill="currentColor" />
+  </svg>
+)}
+
+{variant === 'mark' && (
+  <svg class:list={['thrive-path thrive-path--mark', className]} viewBox="0 0 600 220" fill="none" aria-hidden="true">
+    <path
+      d="M0 190h80c70 0 86-58 156-58h60c70 0 86-46 156-46h148"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+  </svg>
+)}
+
+<style>
+  .thrive-path {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+
+  .thrive-path--rule {
+    color: var(--color-accent);
+    margin: 26px auto 0;
+    max-width: 180px;
+  }
+
+  .thrive-path--journey {
+    color: rgba(79, 129, 95, 0.45);
+  }
+</style>

@@ -3,7 +3,7 @@
    Modern advisor profile system
    =========================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600;1,700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300..800;1,300..700&display=swap');
 
 :root {
   --color-bg: #f7faf8;
@@ -19,10 +19,14 @@
   --color-heading: #183028;
   --color-dark: #183028;
   --color-dark-alt: #101b17;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-sans: 'Albert Sans', system-ui, -apple-system, sans-serif;
+  /* Kept as an alias so existing references resolve to the one brand face. */
+  --font-serif: 'Albert Sans', system-ui, -apple-system, sans-serif;
   --max-width: 720px;
   --max-width-wide: 1120px;
+  --radius-sm: 8px;
+  --radius: 10px;
+  --radius-lg: 12px;
 }
 
 *, *::before, *::after {
@@ -58,14 +62,15 @@ body {
 
 /* Typography */
 h1, h2, h3, h4 {
-  font-family: var(--font-serif);
-  font-weight: 800;
+  font-family: var(--font-sans);
+  font-weight: 700;
   color: var(--color-heading);
-  line-height: 1.08;
+  letter-spacing: -0.022em;
+  line-height: 1.14;
 }
 
-h1 { font-size: clamp(2rem, 5vw, 3rem); }
-h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h1 { font-size: clamp(2.1rem, 5vw, 3.1rem); }
+h2 { font-size: clamp(1.55rem, 3vw, 2.1rem); }
 h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
 
 p { margin-bottom: 1.25rem; }
@@ -113,7 +118,7 @@ em { font-style: italic; }
 .utility-bar {
   border-bottom: 1px solid rgba(24, 48, 40, 0.07);
   overflow: hidden;
-  transition: max-height 0.28s ease, opacity 0.2s ease;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
   max-height: 56px;
 }
 
@@ -222,7 +227,7 @@ em { font-style: italic; }
   right: 0;
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 0.25s ease;
+  transition: transform 0.4s ease;
 }
 
 .mainnav__link:hover,
@@ -248,8 +253,8 @@ em { font-style: italic; }
   position: absolute;
   right: 0;
   top: 100%;
-  transform: translateY(-8px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateY(-6px);
+  transition: opacity 0.32s ease, transform 0.32s ease;
 }
 
 .mainnav__item.is-open .megamenu {
@@ -303,7 +308,7 @@ em { font-style: italic; }
 .megamenu__feature {
   background: var(--color-accent-pale);
   border: 1px solid rgba(79, 129, 95, 0.2);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   padding: 1.5rem;
 }
 
@@ -389,7 +394,7 @@ em { font-style: italic; }
 .searchbar__inner {
   align-items: center;
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--radius);
   display: flex;
   gap: 0.75rem;
   margin: 0 auto;
@@ -494,7 +499,7 @@ em { font-style: italic; }
 .floating-contact {
   align-items: center;
   background: var(--color-dark);
-  border-radius: 999px;
+  border-radius: var(--radius);
   bottom: 1.5rem;
   box-shadow: 0 16px 34px rgba(24, 48, 40, 0.3);
   color: #ffffff;
@@ -505,14 +510,13 @@ em { font-style: italic; }
   padding: 0.85rem 1.4rem;
   position: fixed;
   right: 1.5rem;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: background 0.35s ease;
   z-index: 150;
 }
 
 .floating-contact:hover {
   background: var(--color-accent);
   color: #ffffff;
-  transform: translateY(-2px);
 }
 
 @media (max-width: 1080px) {
@@ -601,47 +605,28 @@ em { font-style: italic; }
 .btn {
   display: inline-block;
   padding: 0.95rem 1.45rem;
-  border-radius: 8px;
+  border-radius: var(--radius);
   font-size: 0.95rem;
-  font-weight: 800;
+  font-weight: 600;
   cursor: pointer;
-  isolation: isolate;
-  overflow: hidden;
   position: relative;
-  transition: all 0.2s;
+  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
   text-decoration: none;
   line-height: 1.2;
-}
-
-.btn::after {
-  background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.34) 46%, transparent 62%);
-  content: "";
-  inset: -30% -55%;
-  pointer-events: none;
-  position: absolute;
-  transform: translateX(-72%) skewX(-14deg);
-  transition: transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 0;
-}
-
-.btn:hover::after {
-  transform: translateX(72%) skewX(-14deg);
 }
 
 .btn--primary {
   background: var(--color-accent);
   color: #fff;
-  box-shadow: 0 12px 26px rgba(79, 129, 95, 0.22);
 }
 
 .btn--primary:hover {
   background: #3f6f50;
   color: #fff;
-  transform: translateY(-1px);
 }
 
 .btn--outline {
-  border: 2px solid rgba(24, 48, 40, 0.18);
+  border: 1px solid rgba(24, 48, 40, 0.22);
   color: var(--color-heading);
   background: transparent;
 }
@@ -702,14 +687,13 @@ em { font-style: italic; }
 .card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 1.75rem;
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition: border-color 0.35s ease;
 }
 
 .card:hover {
-  box-shadow: 0 4px 20px rgba(74, 124, 89, 0.1);
-  transform: translateY(-2px);
+  border-color: rgba(79, 129, 95, 0.4);
 }
 
 .card__tag {
@@ -720,8 +704,8 @@ em { font-style: italic; }
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.3rem 0.75rem;
-  border-radius: 99px;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-sm);
   margin-bottom: 0.85rem;
   border: 1px solid rgba(74, 124, 89, 0.2);
 }
@@ -767,7 +751,7 @@ em { font-style: italic; }
   display: inline-block;
   background: var(--color-accent-pale);
   color: var(--color-accent);
-  border-radius: 99px;
+  border-radius: var(--radius-sm);
   padding: 0.2rem 0.75rem;
   font-size: 0.8rem;
   font-weight: 500;
@@ -857,7 +841,7 @@ em { font-style: italic; }
 .hub-card {
   background: #ffffff;
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   color: inherit;
   display: block;
   padding: 1.6rem;
@@ -917,7 +901,7 @@ em { font-style: italic; }
 .step-list article {
   background: #ffffff;
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   counter-increment: step;
   padding: 1.4rem 1.5rem 1.4rem 4.4rem;
   position: relative;
@@ -926,7 +910,7 @@ em { font-style: italic; }
 .step-list article::before {
   background: var(--color-accent-pale);
   border: 1px solid rgba(79, 129, 95, 0.24);
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   color: var(--color-accent);
   content: counter(step, decimal-leading-zero);
   font-size: 0.72rem;
@@ -946,7 +930,7 @@ em { font-style: italic; }
 .note-panel {
   background: var(--color-bg-alt);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   padding: 1.5rem;
 }
 

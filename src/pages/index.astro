@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import ThrivePath from '../components/ThrivePath.astro';
 
 const recentArticles = (await getCollection('articles', ({ data }) => !data.draft))
   .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
@@ -178,50 +179,57 @@ const helpTabs = [
         <p class="eyebrow">Find Your Path</p>
         <h2>One brand, three useful doors.</h2>
         <p>Intentional Thrive is built to help people understand money, make better decisions, and see the kind of leadership Venus brings to financial services.</p>
+        <ThrivePath variant="rule" />
       </div>
 
-      <div class="hub-grid">
-        <a href="/start-here" class="hub-card">
-          <span class="hub-card__label">For Readers</span>
+      <div class="door-grid">
+        <a href="/start-here" class="door">
+          <span class="door__label">For readers</span>
           <h3>Start with the question that sounds like your life.</h3>
-          <p>Follow guided pathways for insurance clarity, money mindset, family financial conversations, and intentional living.</p>
+          <p>Guided pathways for insurance clarity, money mindset, family conversations, and intentional living.</p>
+          <span class="door__link">Find your pathway &rarr;</span>
         </a>
-        <a href="/assessment" class="hub-card">
-          <span class="hub-card__label">For Clients</span>
+        <a href="/assessment" class="door">
+          <span class="door__label">For clients</span>
           <h3>Get a free financial readiness assessment.</h3>
           <p>Review cash flow, protection gaps, existing coverage, and your next best move with a calmer process.</p>
+          <span class="door__link">Book the assessment &rarr;</span>
         </a>
-        <a href="/join-the-team" class="hub-card hub-card--dark">
-          <span class="hub-card__label">For Future Advisors</span>
+        <a href="/join-the-team" class="door">
+          <span class="door__label">For future advisors</span>
           <h3>Explore a career built on service and clarity.</h3>
-          <p>Learn Venus's mentorship approach and whether financial services fits your goals, strengths, and life season.</p>
+          <p>How Venus mentors, and whether financial services fits your goals, strengths, and life season.</p>
+          <span class="door__link">See what it takes &rarr;</span>
         </a>
       </div>
     </div>
   </section>
 
-  <section class="clarity-map" id="clarity-map">
+  <section class="journey" id="clarity-map">
     <div class="container--wide">
       <div class="section-heading">
-        <p class="eyebrow">The Clarity Map</p>
-        <h2>Know what to fix before buying anything new.</h2>
-        <p>The first goal is not a product. It is understanding what your current financial life is asking from you.</p>
+        <p class="eyebrow">The Core Journey</p>
+        <h2>Understand, then decide, then build.</h2>
+        <p>The first goal is not a product. It is seeing clearly what your financial life is already asking from you.</p>
+        <ThrivePath variant="rule" />
       </div>
 
-      <div class="map-grid">
+      <div class="journey__path"><ThrivePath variant="journey" /></div>
+
+      <div class="journey-grid">
         <article>
-          <span>01</span>
+          <span class="journey__step">Understand</span>
           <h3>See the money pattern</h3>
-          <p>Where income goes, what keeps repeating, and why higher earnings may still feel tight.</p>
+          <p>Where income goes, what keeps repeating, and why higher earnings can still feel tight.</p>
         </article>
         <article>
-          <span>02</span>
-          <h3>Check the protection gap</h3>
+          <span class="journey__step">Decide</span>
+          <h3>Close the protection gap</h3>
           <p>What happens if income stops, health changes, or your family needs support quickly.</p>
         </article>
         <article>
-          <span>03</span>
-          <h3>Build the next move</h3>
+          <span class="journey__step">Build</span>
+          <h3>Make the next move</h3>
           <p>A practical sequence for savings, coverage, investing, and long-term family goals.</p>
         </article>
       </div>
@@ -265,6 +273,7 @@ const helpTabs = [
         <p class="eyebrow">Start Reading</p>
         <h2>Practical notes for an intentional financial life.</h2>
         <p>Use the articles to understand the issue, then move into a resource or assessment when you are ready to apply it.</p>
+        <ThrivePath variant="rule" />
       </div>
       <div class="article-grid">
         {recentArticles.map(article => (
@@ -283,6 +292,7 @@ const helpTabs = [
   </section>
 
   <section class="final-banner">
+    <div class="final-banner__mark" aria-hidden="true"><ThrivePath variant="mark" /></div>
     <div class="container">
       <p class="eyebrow">Ready when you are</p>
       <h2>One clear conversation can change the next decision.</h2>
@@ -376,7 +386,7 @@ const helpTabs = [
   grid-area: 1 / 1;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.7s ease;
+  transition: opacity 0.9s ease;
 }
 
 .hero-slide.is-active {
@@ -400,11 +410,11 @@ const helpTabs = [
 
 .hero-slide__quote {
   color: #fff;
-  font-family: var(--font-serif);
-  font-size: clamp(38px, 6vw, 76px);
-  font-weight: 800;
+  font-family: var(--font-sans);
+  font-size: clamp(36px, 5.4vw, 68px);
+  font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.02;
+  line-height: 1.06;
   margin: 0 auto;
   max-width: 900px;
 }
@@ -426,20 +436,19 @@ const helpTabs = [
 
 .hero-slide__cta {
   background: var(--color-accent);
-  border-radius: 999px;
+  border-radius: var(--radius);
   color: #fff;
   display: inline-block;
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 600;
   margin-top: 28px;
   padding: 15px 34px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.35s ease;
 }
 
 .hero-slide__cta:hover {
   background: #3f6f50;
   color: #fff;
-  transform: translateY(-2px);
 }
 
 .hero-slider__controls {
@@ -489,7 +498,7 @@ const helpTabs = [
 .quicklinks__main {
   align-items: center;
   background: var(--color-accent);
-  border-radius: 14px 0 0 14px;
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
   color: #fff;
   display: flex;
   gap: 20px;
@@ -531,7 +540,7 @@ const helpTabs = [
   justify-items: center;
   line-height: 1.3;
   text-align: center;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.35s ease;
   width: 96px;
 }
 
@@ -541,8 +550,7 @@ const helpTabs = [
 
 .quicklinks__item:hover {
   color: #fff;
-  opacity: 0.82;
-  transform: translateY(-2px);
+  opacity: 0.78;
 }
 
 .quicklinks__controls {
@@ -573,7 +581,7 @@ const helpTabs = [
 
 .quicklinks__aside {
   background: var(--color-dark);
-  border-radius: 0 14px 14px 0;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   color: #fff;
   display: grid;
   align-content: center;
@@ -591,11 +599,11 @@ const helpTabs = [
 .quicklinks__aside a {
   align-items: center;
   background: var(--color-accent-pale);
-  border-radius: 999px;
+  border-radius: var(--radius);
   color: var(--color-dark);
   display: inline-flex;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 600;
   gap: 8px;
   justify-content: center;
   padding: 13px 20px;
@@ -615,13 +623,13 @@ const helpTabs = [
 
 .help-tabs__title {
   font-size: clamp(30px, 4vw, 46px);
-  font-weight: 400;
-  letter-spacing: -0.03em;
+  font-weight: 300;
+  letter-spacing: -0.025em;
   margin-bottom: 26px;
 }
 
 .help-tabs__title strong {
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .help-tabs__nav {
@@ -639,10 +647,10 @@ const helpTabs = [
   cursor: pointer;
   font-family: var(--font-sans);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: -1px;
   padding: 0 2px 14px;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.35s ease, border-color 0.35s ease;
 }
 
 .help-tabs__tab.is-active {
@@ -652,7 +660,7 @@ const helpTabs = [
 
 .help-tabs__panel {
   display: none;
-  gap: 18px;
+  gap: 40px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
@@ -661,26 +669,22 @@ const helpTabs = [
 }
 
 .help-card {
-  background: linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
-  border: 1px solid var(--color-border);
-  border-radius: 16px;
+  border-top: 1px solid var(--color-border);
   color: inherit;
   display: flex;
   flex-direction: column;
-  padding: 26px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  padding-top: 22px;
+  transition: border-color 0.35s ease;
 }
 
 .help-card:hover {
-  border-color: rgba(79, 129, 95, 0.45);
-  box-shadow: 0 20px 46px rgba(24, 48, 40, 0.1);
+  border-top-color: var(--color-accent);
   color: inherit;
-  transform: translateY(-3px);
 }
 
 .help-card h3 {
-  font-size: 19px;
-  font-weight: 900;
+  font-size: 20px;
+  font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 10px;
 }
@@ -695,7 +699,7 @@ const helpTabs = [
 .help-card span {
   color: var(--color-accent);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 600;
   margin-top: auto;
 }
 
@@ -720,8 +724,8 @@ const helpTabs = [
   color: var(--color-dark);
   display: block;
   font-size: 28px;
-  font-weight: 900;
-  letter-spacing: -0.04em;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
 .proof-grid span {
@@ -729,19 +733,17 @@ const helpTabs = [
   font-size: 13px;
 }
 
-.clarity-map,
+.journey,
 .decision-section,
 .guide-section,
 .pathway-section,
 .article-strip {
-  padding: 88px 0;
+  padding: 104px 0;
 }
 
-.clarity-map,
+.journey,
 .guide-section {
-  background:
-    linear-gradient(140deg, rgba(79, 129, 95, 0.08), transparent 34%),
-    var(--color-bg);
+  background: var(--color-bg);
 }
 
 .section-heading {
@@ -749,15 +751,6 @@ const helpTabs = [
   max-width: 720px;
   position: relative;
   text-align: center;
-}
-
-.section-heading::after {
-  background: linear-gradient(90deg, transparent, rgba(214, 189, 120, 0.86), transparent);
-  content: "";
-  display: block;
-  height: 1px;
-  margin: 24px auto 0;
-  max-width: 220px;
 }
 
 .section-heading.compact {
@@ -768,9 +761,9 @@ const helpTabs = [
 .decision-card h2,
 .guide-grid h2,
 .final-banner h2 {
-  font-size: clamp(36px, 6vw, 64px);
-  letter-spacing: -0.045em;
-  line-height: 1;
+  font-size: clamp(32px, 4.6vw, 54px);
+  letter-spacing: -0.028em;
+  line-height: 1.1;
 }
 
 .section-heading p:not(.eyebrow) {
@@ -780,43 +773,39 @@ const helpTabs = [
   margin-top: 18px;
 }
 
-.map-grid {
+.journey__path {
+  margin-bottom: -18px;
+}
+
+.journey-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
 }
 
-.map-grid article {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: 18px;
-  box-shadow: 0 18px 42px rgba(24, 48, 40, 0.06);
-  padding: 30px;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+.journey-grid article {
+  border-top: 1px solid var(--color-border);
+  padding-top: 22px;
 }
 
-.map-grid article:hover {
-  border-color: rgba(79, 129, 95, 0.34);
-  box-shadow: 0 22px 56px rgba(24, 48, 40, 0.1);
-  transform: translateY(-3px);
-}
-
-.map-grid span {
+.journey__step {
   color: var(--color-accent);
-  font-size: 13px;
-  font-weight: 900;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
-.map-grid h3,
+.journey-grid h3,
 .article-card h3 {
   color: var(--color-dark);
-  font-size: 22px;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  margin: 14px 0 12px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 12px 0 10px;
 }
 
-.map-grid p,
+.journey-grid p,
 .decision-card p,
 .guide-copy p,
 .article-card p {
@@ -832,6 +821,47 @@ const helpTabs = [
   background: #fff;
 }
 
+.door-grid {
+  display: grid;
+  gap: 44px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.door {
+  border-top: 2px solid var(--color-accent);
+  color: inherit;
+  display: block;
+  padding-top: 22px;
+}
+
+.door__label {
+  color: var(--color-accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.door h3 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 12px 0 10px;
+}
+
+.door p {
+  color: var(--color-text-muted);
+  font-size: 16px;
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+
+.door__link {
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
 .decision-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -839,8 +869,7 @@ const helpTabs = [
 }
 
 .decision-card {
-  border-radius: 20px;
-  box-shadow: 0 18px 48px rgba(24, 48, 40, 0.08);
+  border-radius: var(--radius-lg);
   padding: 42px;
 }
 
@@ -888,15 +917,14 @@ const helpTabs = [
 .guide-copy {
   background: #fff;
   border: 1px solid var(--color-border);
-  border-radius: 18px;
-  box-shadow: 0 18px 48px rgba(24, 48, 40, 0.07);
+  border-radius: var(--radius-lg);
   padding: 34px;
 }
 
 .text-link {
   color: var(--color-accent);
   display: inline-block;
-  font-weight: 900;
+  font-weight: 600;
   margin-top: 10px;
 }
 
@@ -914,28 +942,28 @@ const helpTabs = [
   gap: 18px;
 }
 
+.article-grid {
+  gap: 44px;
+}
+
 .article-card {
-  background: linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
-  border: 1px solid var(--color-border);
-  border-radius: 18px;
-  box-shadow: 0 14px 36px rgba(24, 48, 40, 0.05);
+  border-top: 1px solid var(--color-border);
   color: inherit;
-  padding: 26px;
-  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  display: block;
+  padding-top: 22px;
+  transition: border-color 0.35s ease;
 }
 
 .article-card:hover {
-  border-color: rgba(79, 129, 95, 0.45);
-  box-shadow: 0 22px 52px rgba(24, 48, 40, 0.1);
+  border-top-color: var(--color-accent);
   color: inherit;
-  transform: translateY(-3px);
 }
 
 .article-card span {
   color: var(--color-accent);
   font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -949,14 +977,18 @@ const helpTabs = [
   text-align: center;
 }
 
-.final-banner::before {
-  background: linear-gradient(90deg, transparent, rgba(214, 189, 120, 0.32), transparent);
-  content: "";
-  height: 1px;
-  left: 12%;
+.final-banner__mark {
+  bottom: -22px;
+  color: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
   position: absolute;
-  right: 12%;
-  top: 0;
+  right: -40px;
+  width: min(400px, 42%);
+}
+
+.final-banner .container {
+  position: relative;
+  z-index: 1;
 }
 
 .final-banner .eyebrow,
@@ -971,12 +1003,13 @@ const helpTabs = [
 
 .btn-white {
   background: #fff;
-  border-radius: 8px;
+  border-radius: var(--radius);
   color: var(--color-accent);
   display: inline-block;
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 600;
   padding: 18px 34px;
+  position: relative;
 }
 
 .btn-white:hover {
@@ -990,11 +1023,11 @@ const helpTabs = [
   }
 
   .quicklinks__main {
-    border-radius: 14px 14px 0 0;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   }
 
   .quicklinks__aside {
-    border-radius: 0 0 14px 14px;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     grid-auto-flow: column;
     justify-content: space-between;
     align-items: center;
@@ -1009,8 +1042,13 @@ const helpTabs = [
   .decision-grid,
   .guide-grid,
   .article-grid,
-  .map-grid {
+  .door-grid,
+  .journey-grid {
     grid-template-columns: 1fr;
+  }
+
+  .journey__path {
+    display: none;
   }
 
   .proof-grid {
