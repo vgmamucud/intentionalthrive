@@ -1,12 +1,42 @@
 ---
+import { getCollection } from 'astro:content';
+import { navItems, utilityLinks } from '../data/nav';
+import { resourceGuides } from '../data/resourceGuides';
+
 export interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description = "A space for Filipino professionals who are done drifting and ready to design their financial lives on their own terms.", ogImage } = Astro.props;
+const {
+  title,
+  description = "A space for Filipino professionals who are done drifting and ready to design their financial lives on their own terms.",
+  ogImage = '/images/intentional-thrive-planning.png',
+  schema,
+} = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site);
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const searchIndex = [
+  ...(await getCollection('articles', ({ data }) => !data.draft)).map((article) => ({
+    title: article.data.title,
+    href: `/blog/${article.slug}`,
+    kind: article.data.pillar,
+  })),
+  ...resourceGuides.map((guide) => ({
+    title: guide.title,
+    href: `/resources/${guide.slug}`,
+    kind: 'Free Guide',
+  })),
+  { title: 'Free Financial Assessment', href: '/assessment', kind: 'Page' },
+  { title: 'Start Here', href: '/start-here', kind: 'Page' },
+  { title: 'Join the Team', href: '/join-the-team', kind: 'Page' },
+  { title: 'About Venus', href: '/about', kind: 'Page' },
+  { title: 'Media', href: '/media', kind: 'Page' },
+];
 ---
 
 <!DOCTYPE html>
@@ -22,34 +52,127 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta property="og:image" content={ogImageURL} />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageURL} />
+  {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
   <title>{title}</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href={new URL('/styles/global.css', Astro.site).href} />
+  <link rel="stylesheet" href="/styles/global.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.24.0/dist/tabler-icons.min.css" />
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav__inner">
-      <a href="/" class="nav__logo">Intentional <span>Thrive</span></a>
-      <ul class="nav__links">
-        <li><a href="/about#connect">Free Assessment</a></li>
-        <li><a href="/#career">Join the Team</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/blog" class="nav__cta">Articles →</a></li>
-      </ul>
+  <!-- Header -->
+  <header class="site-header" data-site-header>
+
+    <!-- Utility bar -->
+    <div class="utility-bar">
+      <div class="utility-bar__inner">
+        {utilityLinks.map((link) => (
+          <a href={link.href} class="utility-bar__link">
+            <i class={`ti ${link.icon}`} aria-hidden="true"></i>
+            <span>{link.label}</span>
+          </a>
+        ))}
+      </div>
     </div>
-  </nav>
+
+    <!-- Main navigation -->
+    <div class="masthead">
+      <div class="masthead__inner">
+        <a href="/" class="masthead__logo">Intentional <span>Thrive</span></a>
+
+        <nav class="mainnav" aria-label="Main">
+          <ul class="mainnav__list">
+            {navItems.map((item) => (
+              <li class={`mainnav__item${item.children ? ' has-menu' : ''}`}>
+                <a
+                  href={item.href}
+                  class="mainnav__link"
+                  aria-current={currentPath === item.href ? 'page' : undefined}
+                  aria-expanded={item.children ? 'false' : undefined}
+                  data-menu-trigger={item.children ? '' : undefined}
+                >
+                  <span>{item.label}</span>
+                  {item.children && <i class="ti ti-chevron-down" aria-hidden="true"></i>}
+                </a>
+
+                {item.children && (
+                  <div class="megamenu" data-menu-panel>
+                    <div class="megamenu__inner">
+                      <ul class="megamenu__links">
+                        {item.children.map((child) => (
+                          <li>
+                            <a href={child.href}>
+                              <strong>{child.label}</strong>
+                              {child.blurb && <span>{child.blurb}</span>}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                      {item.feature && (
+                        <div class="megamenu__feature">
+                          <strong>{item.feature.title}</strong>
+                          <p>{item.feature.copy}</p>
+                          <a href={item.feature.href}>{item.feature.cta} &rarr;</a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div class="masthead__actions">
+          <a href="/about" class="masthead__account">
+            <i class="ti ti-user-circle" aria-hidden="true"></i>
+            <span>Meet Venus</span>
+          </a>
+          <button type="button" class="masthead__search" data-search-toggle aria-label="Search this site" aria-expanded="false">
+            <i class="ti ti-search" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="masthead__burger" data-nav-toggle aria-label="Open menu" aria-expanded="false">
+            <i class="ti ti-menu-2" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search panel -->
+    <div class="searchbar" data-search-panel hidden>
+      <div class="searchbar__inner">
+        <i class="ti ti-search" aria-hidden="true"></i>
+        <input type="search" placeholder="Search articles, guides, and pages" data-search-input aria-label="Search" />
+        <button type="button" data-search-close aria-label="Close search"><i class="ti ti-x" aria-hidden="true"></i></button>
+      </div>
+      <ul class="searchbar__results" data-search-results></ul>
+    </div>
+  <!-- Mobile drawer -->
+  <div class="mobilenav" data-nav-panel hidden>
+    <ul>
+      {navItems.map((item) => (
+        <li>
+          <a href={item.href}>{item.label}</a>
+          {item.children && (
+            <ul>
+              {item.children.map((child) => <li><a href={child.href}>{child.label}</a></li>)}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+  </header>
 
   <!-- Page Content -->
   <slot />
@@ -61,15 +184,128 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <p class="footer__tagline">For the Filipino professional who's done drifting and ready to design.</p>
       <ul class="footer__links">
         <li><a href="/">Home</a></li>
-        <li><a href="/about#connect">Free Assessment</a></li>
-        <li><a href="/#career">Join the Team</a></li>
+        <li><a href="/start-here">Start Here</a></li>
+        <li><a href="/assessment">Free Assessment</a></li>
+        <li><a href="/join-the-team">Join the Team</a></li>
         <li><a href="/about">About</a></li>
+        <li><a href="/resources">Resources</a></li>
+        <li><a href="/media">Media</a></li>
         <li><a href="/blog">Articles</a></li>
-        <li><a href="/about#connect">Connect</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/disclosures">Disclosures</a></li>
       </ul>
       <p class="footer__copy">© 2026 Intentional Thrive · Venus · All rights reserved</p>
     </div>
   </footer>
+
+  <!-- Floating contact pill -->
+  <a href="/assessment" class="floating-contact">
+    <i class="ti ti-send" aria-hidden="true"></i>
+    <span>Contact us</span>
+  </a>
+
+  <script is:inline define:vars={{ searchIndex }}>
+    (() => {
+      const header = document.querySelector('[data-site-header]');
+      if (!header) return;
+
+      // Sticky shadow
+      const onScroll = () => header.classList.toggle('is-stuck', window.scrollY > 8);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Mega menus (hover on desktop, click/keyboard everywhere)
+      const items = header.querySelectorAll('.mainnav__item.has-menu');
+      const closeMenus = (except) => {
+        items.forEach((item) => {
+          if (item === except) return;
+          item.classList.remove('is-open');
+          item.querySelector('[data-menu-trigger]')?.setAttribute('aria-expanded', 'false');
+        });
+      };
+
+      items.forEach((item) => {
+        const trigger = item.querySelector('[data-menu-trigger]');
+        item.addEventListener('mouseenter', () => {
+          if (window.matchMedia('(hover: hover)').matches) {
+            closeMenus(item);
+            item.classList.add('is-open');
+            trigger?.setAttribute('aria-expanded', 'true');
+          }
+        });
+        item.addEventListener('mouseleave', () => {
+          if (window.matchMedia('(hover: hover)').matches) {
+            item.classList.remove('is-open');
+            trigger?.setAttribute('aria-expanded', 'false');
+          }
+        });
+        trigger?.addEventListener('click', (event) => {
+          if (window.matchMedia('(hover: hover)').matches) return;
+          event.preventDefault();
+          const open = item.classList.toggle('is-open');
+          closeMenus(item);
+          trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeMenus(null);
+          closeSearch();
+        }
+      });
+
+      // Search
+      const searchToggle = header.querySelector('[data-search-toggle]');
+      const searchPanel = header.querySelector('[data-search-panel]');
+      const searchInput = header.querySelector('[data-search-input]');
+      const searchResults = header.querySelector('[data-search-results]');
+      const searchClose = header.querySelector('[data-search-close]');
+
+      function closeSearch() {
+        searchPanel.hidden = true;
+        searchToggle.setAttribute('aria-expanded', 'false');
+      }
+
+      const renderResults = (query) => {
+        const term = query.trim().toLowerCase();
+        if (!term) {
+          searchResults.innerHTML = '';
+          return;
+        }
+        const matches = searchIndex
+          .filter((entry) => entry.title.toLowerCase().includes(term) || entry.kind.toLowerCase().includes(term))
+          .slice(0, 8);
+        searchResults.innerHTML = matches.length
+          ? matches
+              .map(
+                (entry) =>
+                  `<li><a href="${entry.href}"><span>${entry.kind}</span><strong>${entry.title}</strong></a></li>`
+              )
+              .join('')
+          : '<li class="searchbar__empty">No matches yet. Try “insurance”, “VUL”, or “career”.</li>';
+      };
+
+      searchToggle?.addEventListener('click', () => {
+        const open = searchPanel.hidden;
+        searchPanel.hidden = !open;
+        searchToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) searchInput.focus();
+      });
+      searchClose?.addEventListener('click', closeSearch);
+      searchInput?.addEventListener('input', (event) => renderResults(event.target.value));
+
+      // Mobile drawer
+      const navToggle = header.querySelector('[data-nav-toggle]');
+      const navPanel = document.querySelector('[data-nav-panel]');
+      navToggle?.addEventListener('click', () => {
+        const open = navPanel.hidden;
+        navPanel.hidden = !open;
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.querySelector('i').className = open ? 'ti ti-x' : 'ti ti-menu-2';
+      });
+    })();
+  </script>
 
 </body>
 </html>

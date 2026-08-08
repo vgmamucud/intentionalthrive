@@ -50,15 +50,24 @@ const { title, description, pubDate, pillar, readTime, heroImage } = Astro.props
         <div>
           <div class="author-card__name">Venus</div>
           <div class="author-card__bio">Pru Life UK Unit Manager · Founder, Intentional Thrive · Writing about money mindset, wealth planning, and intentional living for Filipino professionals.</div>
-          <a href="/about" class="author-card__link">More about Venus →</a>
+          <a href="/about" class="author-card__link">More about Venus &rarr;</a>
         </div>
       </div>
 
       <!-- CTA -->
-      <div class="article-cta">
-        <h3>More on Intentional Thrive</h3>
-        <p>Articles on money mindset, wealth planning, and designing life with intention — for the Filipino professional who's ready to start.</p>
-        <a href="/blog" class="btn btn--primary">Read more articles</a>
+      <div class="article-cta-grid">
+        <div class="article-cta article-cta--light">
+          <span class="article-cta__label">For your next decision</span>
+          <h3>Apply this to your real financial picture.</h3>
+          <p>Get a free readiness assessment to review your cash flow, protection gaps, existing coverage, and next best move.</p>
+          <a href="/assessment" class="btn btn--primary">Get free assessment</a>
+        </div>
+        <div class="article-cta article-cta--dark">
+          <span class="article-cta__label">For your career</span>
+          <h3>Curious about becoming an advisor?</h3>
+          <p>Explore Venus's leadership approach and the kind of mentorship behind Intentional Thrive.</p>
+          <a href="/join-the-team" class="btn btn--dark">Join the team</a>
+        </div>
       </div>
     </article>
   </main>
@@ -155,23 +164,61 @@ const { title, description, pubDate, pillar, readTime, heroImage } = Astro.props
   font-weight: 500;
 }
 
-.article-cta {
-  background: var(--color-heading);
-  color: #c8d4cb;
-  border-radius: 8px;
-  padding: 2.5rem;
-  text-align: center;
+.article-cta-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-bottom: 3rem;
 }
 
-.article-cta h3 {
+.article-cta {
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.article-cta--light {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+}
+
+.article-cta--dark {
+  background: var(--color-heading);
+  border: 1px solid rgba(214, 189, 120, 0.26);
+  color: #c8d4cb;
+}
+
+.article-cta--dark h3 {
   color: #ffffff;
-  margin-bottom: 0.75rem;
 }
 
 .article-cta p {
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
-  opacity: 0.8;
+}
+
+.article-cta__label {
+  color: var(--color-accent);
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.7rem;
+  text-transform: uppercase;
+}
+
+.article-cta--dark .article-cta__label {
+  color: var(--color-gold);
+}
+
+.article-cta h3 {
+  font-family: var(--font-sans);
+  font-size: 1.12rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .article-cta-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

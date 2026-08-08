@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const resources = (await getCollection('resources', ({ data }) => data.published))
+  .sort((a, b) => a.data.category.localeCompare(b.data.category) || a.data.title.localeCompare(b.data.title));
+---
+
+<Base
+  title="Resources - Intentional Thrive"
+  description="Free guides, checklists, and templates for Filipino professionals building financial clarity with intention."
+>
+  <header class="authority-hero">
+    <div class="container--wide">
+      <span class="section-kicker">Resources</span>
+      <h1>Practical tools for the financial decisions people delay.</h1>
+      <p class="authority-hero__copy">Use these guides to prepare for a clearer conversation about insurance, money patterns, family responsibilities, career growth, and intentional planning.</p>
+      <div class="authority-actions">
+        <a href="/assessment" class="btn btn--primary">Get free assessment</a>
+        <a href="/blog" class="btn btn--outline">Read articles</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section-block section-block--white">
+    <div class="container--wide">
+      <span class="section-kicker">Free Tools</span>
+      <h2>Start with the resource that matches your question.</h2>
+      <p class="section-intro">Each guide opens as a clean worksheet you can read, print, or save as a PDF before a conversation with Venus.</p>
+      <div class="hub-grid">
+        {resources.map((resource) => (
+          <a href={resource.data.fileUrl} class="hub-card">
+            <span class="hub-card__label">{resource.data.category}</span>
+            <h3>{resource.data.title}</h3>
+            <p>{resource.data.description}</p>
+            <strong class="resource-card-action">Open guide</strong>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="container">
+      <div class="note-panel">
+        <span class="section-kicker">How To Use These</span>
+        <h2>Bring your answers into the conversation.</h2>
+        <p>The strongest financial conversations happen when you can see the current picture clearly. Use a guide, write down your questions, then request a readiness assessment when you want help applying it.</p>
+        <div class="btn-row">
+          <a href="/assessment" class="btn btn--primary">Request assessment</a>
+          <a href="mailto:venus@intentionalthrive.com?subject=Resource%20Question" class="btn btn--outline">Ask a resource question</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+.resource-card-action {
+  color: var(--color-accent);
+  display: inline-block;
+  font-size: 0.86rem;
+  margin-top: 1rem;
+}
+</style>

@@ -1,0 +1,97 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const articles = await getCollection('articles', ({ data }) => !data.draft);
+const bySlug = Object.fromEntries(articles.map((article) => [article.slug, article]));
+
+const pathways = [
+  {
+    label: 'Insurance Clarity',
+    title: 'I have insurance, but I do not fully understand it.',
+    copy: 'Start here if you bought a policy because someone asked, or if VUL, coverage, charges, and benefits still feel unclear.',
+    primaryHref: '/blog/what-life-insurance-actually-is',
+    primary: bySlug['what-life-insurance-actually-is']?.data.title ?? 'What Life Insurance Actually Is',
+    secondaryHref: '/blog/vul-truth',
+    secondary: bySlug['vul-truth']?.data.title ?? 'The VUL Truth',
+  },
+  {
+    label: 'Money Pattern',
+    title: 'I earn, but I still do not feel financially secure.',
+    copy: 'Start here if your income grew but your savings, boundaries, or confidence did not grow with it.',
+    primaryHref: '/blog/money-didnt-change-me',
+    primary: bySlug['money-didnt-change-me']?.data.title ?? "Money Didn't Change Me",
+    secondaryHref: '/blog/not-starting-over-at-40',
+    secondary: bySlug['not-starting-over-at-40']?.data.title ?? 'Not Starting Over at 40',
+  },
+  {
+    label: 'Family And Marriage',
+    title: 'I want better money conversations at home.',
+    copy: 'Start here if you support family, carry obligations quietly, or want to talk about money without turning it into a fight.',
+    primaryHref: '/blog/generous-to-everyone-except-yourself',
+    primary: bySlug['generous-to-everyone-except-yourself']?.data.title ?? 'Generous to Everyone Except Yourself',
+    secondaryHref: '/blog/talk-to-spouse-about-money',
+    secondary: bySlug['talk-to-spouse-about-money']?.data.title ?? 'Talk to Your Spouse About Money',
+  },
+  {
+    label: 'Leadership And Career',
+    title: 'I am curious about building a career in financial services.',
+    copy: 'Start here if you want a career path with mentorship, personal growth, and client-centered education.',
+    primaryHref: '/join-the-team',
+    primary: 'Explore joining the team',
+    secondaryHref: '/blog/first-year-leading-taught-me-about-money',
+    secondary: bySlug['first-year-leading-taught-me-about-money']?.data.title ?? 'First Year Leading',
+  },
+];
+---
+
+<Base
+  title="Start Here - Intentional Thrive"
+  description="A guided starting point for Filipino professionals exploring insurance, money mindset, family financial decisions, and advisor career growth."
+>
+  <header class="authority-hero">
+    <div class="container--wide">
+      <span class="section-kicker">Start Here</span>
+      <h1>Choose the question that sounds most like your life right now.</h1>
+      <p class="authority-hero__copy">Intentional Thrive is built to help you move from confusion to clarity. Whether you are a client, reader, spouse, parent, or future advisor, start with the pathway that meets you where you are.</p>
+      <div class="authority-actions">
+        <a href="/assessment" class="btn btn--primary">Get free assessment</a>
+        <a href="/resources" class="btn btn--outline">See resources</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section-block section-block--white">
+    <div class="container--wide">
+      <span class="section-kicker">Guided Pathways</span>
+      <h2>Read by need, not by date.</h2>
+      <p class="section-intro">The blog is organized around the real questions people bring into financial conversations: protection, money stories, family obligations, intentional living, and leadership.</p>
+
+      <div class="hub-grid hub-grid--two">
+        {pathways.map((pathway) => (
+          <article class="hub-card">
+            <span class="hub-card__label">{pathway.label}</span>
+            <h3>{pathway.title}</h3>
+            <p>{pathway.copy}</p>
+            <div class="btn-row">
+              <a href={pathway.primaryHref} class="btn btn--primary">{pathway.primary}</a>
+              <a href={pathway.secondaryHref} class="btn btn--outline">{pathway.secondary}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="container">
+      <span class="section-kicker">Best First Move</span>
+      <h2>If you are unsure, start with the assessment.</h2>
+      <p class="section-intro">Reading helps you name the issue. A conversation helps you apply it to your actual responsibilities, coverage, income, and goals.</p>
+      <div class="btn-row">
+        <a href="/assessment" class="btn btn--primary">Get free assessment</a>
+        <a href="/about" class="btn btn--outline">Meet Venus</a>
+      </div>
+    </div>
+  </section>
+</Base>

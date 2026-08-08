@@ -1,0 +1,106 @@
+---
+import Base from '../layouts/Base.astro';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Financial Readiness Assessment',
+  provider: {
+    '@type': 'Person',
+    name: 'Venus Mamucud',
+  },
+  areaServed: 'Philippines',
+  description: 'A free financial readiness conversation for Filipino professionals who want clarity on cash flow, protection, insurance, and long-term planning.',
+};
+---
+
+<Base
+  title="Free Financial Readiness Assessment - Intentional Thrive"
+  description="Start with a calm review of your current money picture, protection gaps, and next financial move with Venus."
+  schema={schema}
+>
+  <header class="authority-hero">
+    <div class="container--wide">
+      <span class="section-kicker">Free Assessment</span>
+      <h1>Know what needs attention before buying anything new.</h1>
+      <p class="authority-hero__copy">A practical first conversation for Filipino professionals who want to understand their current money pattern, protection gaps, and next best financial move.</p>
+      <div class="authority-actions">
+        <a href="mailto:venus@intentionalthrive.com?subject=Free%20Financial%20Readiness%20Assessment" class="btn btn--primary">Request an assessment</a>
+        <a href="/start-here" class="btn btn--outline">Explore first</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section-block section-block--white">
+    <div class="container--wide">
+      <span class="section-kicker">What We Review</span>
+      <h2>A clear look at the moving parts of your financial life.</h2>
+      <p class="section-intro">The goal is clarity, not pressure. You should leave with a better understanding of what is already working, what is exposed, and what needs a smarter sequence.</p>
+
+      <div class="hub-grid">
+        <article class="hub-card">
+          <span class="hub-card__label">Cash Flow</span>
+          <h3>Where the money pattern repeats</h3>
+          <p>Income, spending rhythms, family support, recurring obligations, and the places where higher earnings still do not feel like progress.</p>
+        </article>
+        <article class="hub-card">
+          <span class="hub-card__label">Protection</span>
+          <h3>What happens if income stops</h3>
+          <p>Existing coverage, dependents, health risk, emergency readiness, and the obligations your family would need protected.</p>
+        </article>
+        <article class="hub-card">
+          <span class="hub-card__label">Next Move</span>
+          <h3>What to prioritize first</h3>
+          <p>A practical order for savings, insurance, debt, investments, and long-term family goals based on your current stage.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="container">
+      <span class="section-kicker">How It Works</span>
+      <h2>Simple, private, and designed for decision clarity.</h2>
+      <div class="step-list">
+        <article>
+          <h3>Send a short note</h3>
+          <p>Share where you are now: career stage, family responsibilities, current coverage, and the main question you want answered.</p>
+        </article>
+        <article>
+          <h3>Review your current picture</h3>
+          <p>Venus helps you look at the practical pieces without jargon: cash flow, protection, obligations, risk, and goals.</p>
+        </article>
+        <article>
+          <h3>Leave with a next step</h3>
+          <p>You get a clear direction on what to understand, review, build, or postpone before making another financial decision.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block section-block--white">
+    <div class="container--wide">
+      <div class="hub-grid hub-grid--two">
+        <div class="note-panel">
+          <span class="section-kicker">Good Fit</span>
+          <h2>You may be ready if...</h2>
+          <p>You earn regularly but still feel uncertain, you support family, you bought insurance you do not fully understand, you are planning marriage or parenthood, or you want to make your next financial decision with more confidence.</p>
+        </div>
+        <div class="note-panel">
+          <span class="section-kicker">Not A Sales Call</span>
+          <h2>The first win is understanding.</h2>
+          <p>This conversation is educational and practical. If a product review makes sense, it comes after your actual situation is understood.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <span class="section-kicker">Ready When You Are</span>
+      <h2>Start with one clear conversation.</h2>
+      <p>Send Venus a note with your current question. No pressure, no jargon, just the first step toward clarity.</p>
+      <a href="mailto:venus@intentionalthrive.com?subject=Free%20Financial%20Readiness%20Assessment" class="btn-white">Request an assessment</a>
+    </div>
+  </section>
+</Base>

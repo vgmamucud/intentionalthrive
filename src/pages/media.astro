@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const shows = await getCollection('shows', ({ data }) => data.published);
+---
+
+<Base
+  title="Media and Speaking - Intentional Thrive"
+  description="Invite Venus for conversations, workshops, and media features about financial clarity, insurance education, intentional living, and advisor leadership."
+>
+  <header class="authority-hero">
+    <div class="container--wide">
+      <span class="section-kicker">Media And Speaking</span>
+      <h1>Conversations about money people can actually use.</h1>
+      <p class="authority-hero__copy">Venus speaks and writes about financial clarity for Filipino professionals, insurance education, family money patterns, intentional living, and building a client-centered advisor career.</p>
+      <div class="authority-actions">
+        <a href="mailto:venus@intentionalthrive.com?subject=Media%20or%20Speaking%20Invite" class="btn btn--primary">Invite Venus</a>
+        <a href="/about" class="btn btn--outline">Read bio</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section-block section-block--white">
+    <div class="container--wide">
+      <span class="section-kicker">Topics</span>
+      <h2>Useful themes for interviews, workshops, and talks.</h2>
+      <div class="hub-grid">
+        <article class="hub-card">
+          <span class="hub-card__label">Financial Clarity</span>
+          <h3>Why earning more does not always create security</h3>
+          <p>A practical discussion on money stories, cash flow, protection, and the emotional side of financial decisions.</p>
+        </article>
+        <article class="hub-card">
+          <span class="hub-card__label">Insurance Education</span>
+          <h3>How to understand what you bought</h3>
+          <p>Plain-language explanations of life insurance, VUL, long-term commitments, and questions every client should ask.</p>
+        </article>
+        <article class="hub-card">
+          <span class="hub-card__label">Advisor Leadership</span>
+          <h3>Building a financial services career with integrity</h3>
+          <p>Mentorship, team culture, client education, and the real-life discipline behind a sustainable advisor path.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="container--wide">
+      <span class="section-kicker">Features</span>
+      <h2>Shows and appearances</h2>
+      {shows.length > 0 ? (
+        <div class="hub-grid">
+          {shows.map((show) => (
+            <a href={show.data.url} class="hub-card">
+              <span class="hub-card__label">{show.data.platform}</span>
+              <h3>{show.data.title}</h3>
+              <p>{show.data.description}</p>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="note-panel">
+          <p>Upcoming interviews, videos, workshops, and podcast appearances can live here as the brand grows. For now, Venus is available for thoughtful conversations and practical workshops.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <span class="section-kicker">Invite Venus</span>
+      <h2>Need a grounded financial voice for your audience?</h2>
+      <p>Send the topic, format, audience, date, and what you want people to walk away understanding.</p>
+      <a href="mailto:venus@intentionalthrive.com?subject=Media%20or%20Speaking%20Invite" class="btn-white">Send an invite</a>
+    </div>
+  </section>
+</Base>

@@ -16,10 +16,22 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft))
       <span class="pill">Articles</span>
       <h1 style="margin-top:0.75rem;">Read. Think. Design.</h1>
       <p class="page-header__sub">Money mindset, wealth in practice, intentional living, and the journey — all in one place.</p>
+      <div class="btn-row">
+        <a href="/start-here" class="btn btn--primary">Read by pathway</a>
+        <a href="/resources" class="btn btn--outline">Browse resources</a>
+      </div>
     </div>
   </header>
 
   <main class="container--wide" style="padding: 3rem 1.5rem 5rem;">
+
+    <section class="blog-guide">
+      <div>
+        <span class="section-kicker">Start With Your Question</span>
+        <h2>Find the article that matches the decision in front of you.</h2>
+      </div>
+      <p>Insurance clarity, money stories, family obligations, career growth, and intentional living are connected. Use the pathways if you are not sure where to begin.</p>
+    </section>
 
     <div class="filter-bar">
       <span class="filter-bar__label">Filter by pillar:</span>
@@ -63,6 +75,28 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft))
   align-items: center;
   flex-wrap: wrap;
 }
+
+.blog-guide {
+  align-items: start;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 2rem;
+  padding: 1.6rem;
+}
+
+.blog-guide h2 {
+  font-size: clamp(1.45rem, 3vw, 2rem);
+}
+
+.blog-guide p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
 .filter-bar__label {
   font-size: 0.8rem;
   color: var(--color-text-muted);
@@ -81,5 +115,11 @@ const articles = (await getCollection('articles', ({ data }) => !data.draft))
   border-radius: 6px;
   margin-bottom: 1rem;
   display: block;
+}
+
+@media (max-width: 760px) {
+  .blog-guide {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

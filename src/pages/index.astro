@@ -5,6 +5,68 @@ import Base from '../layouts/Base.astro';
 const recentArticles = (await getCollection('articles', ({ data }) => !data.draft))
   .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
   .slice(0, 3);
+
+// Hero carousel. Swap `image` per slide once more brand photography is available.
+const heroSlides = [
+  {
+    quote: 'I will help you get ahead.',
+    tagline: 'Clarity, made practical',
+    copy: 'For Filipino professionals who are earning, leading, parenting, and quietly wondering if their money is finally working in the right direction.',
+    cta: 'Learn more',
+    href: '/start-here',
+    image: '/images/intentional-thrive-planning.png',
+    tint: 'linear-gradient(135deg, rgba(24, 48, 40, 0.72), rgba(16, 27, 23, 0.68))',
+  },
+  {
+    quote: 'I will protect what you built.',
+    tagline: 'Protection, understood',
+    copy: 'Know what your coverage actually does before you buy anything new, and what happens to your family if income stops.',
+    cta: 'Review your coverage',
+    href: '/resources/life-insurance-review-guide',
+    image: '/images/intentional-thrive-planning.png',
+    tint: 'linear-gradient(135deg, rgba(16, 27, 23, 0.78), rgba(79, 129, 95, 0.55))',
+  },
+  {
+    quote: 'I will walk you through it.',
+    tagline: 'A calmer process',
+    copy: 'A free financial readiness assessment: cash flow, protection gaps, existing coverage, and your next best move.',
+    cta: 'Get free assessment',
+    href: '/assessment',
+    image: '/images/intentional-thrive-planning.png',
+    tint: 'linear-gradient(135deg, rgba(24, 48, 40, 0.82), rgba(24, 48, 40, 0.5))',
+  },
+];
+
+const quickLinks = [
+  { label: 'Protect my family', icon: 'ti-heart-plus', href: '/blog/what-life-insurance-actually-is' },
+  { label: 'Understand my policy', icon: 'ti-shield-plus', href: '/resources/life-insurance-review-guide' },
+  { label: 'Build my wealth', icon: 'ti-chart-histogram', href: '/blog/money-didnt-change-me' },
+  { label: 'Check my readiness', icon: 'ti-clipboard-check', href: '/resources/financial-readiness-checklist' },
+  { label: 'Explore a career', icon: 'ti-users-group', href: '/join-the-team' },
+];
+
+const helpTabs = [
+  {
+    id: 'existing',
+    label: 'Existing clients',
+    cards: [
+      { title: 'Review my policy', copy: 'Check what your coverage includes before renewing or adding anything.', href: '/resources/life-insurance-review-guide' },
+      { title: 'Understand my VUL', copy: 'Charges, fund value, and benefits explained without the jargon.', href: '/resources/vul-clarity-sheet' },
+      { title: 'Talk with Venus', copy: 'Bring a question and get a calm, unhurried answer.', href: '/assessment' },
+      { title: 'Download free guides', copy: 'Worksheets for readiness, coverage, and money conversations.', href: '/resources' },
+    ],
+  },
+  {
+    id: 'new',
+    label: 'New here',
+    cards: [
+      { title: 'Start with your question', copy: 'Pick the pathway that sounds most like your life right now.', href: '/start-here' },
+      { title: 'Get a free assessment', copy: 'A structured look at cash flow, protection, and next steps.', href: '/assessment' },
+      { title: 'Read the articles', copy: 'Practical notes on money mindset, wealth, and intentional living.', href: '/blog' },
+      { title: 'Join the team', copy: 'Explore a financial services career built on service and mentorship.', href: '/join-the-team' },
+    ],
+  },
+];
 ---
 
 <Base
@@ -12,43 +74,92 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
   description="A modern financial clarity space for Filipino professionals who want to protect what matters and build with intention."
 >
 
-  <section class="brand-hero">
-    <div class="container--wide hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Intentional Thrive</p>
-        <h1>Build wealth with clarity and intention.</h1>
-        <p class="hero-sub">For Filipino professionals who are earning, leading, parenting, planning, and quietly wondering if their money is finally working in the right direction.</p>
-        <div class="hero-actions">
-          <a href="/about#connect" class="btn btn--primary">Get Free Assessment</a>
-          <a href="#clarity-map" class="btn btn--outline">See the clarity map</a>
+  <section class="hero-slider" data-hero aria-roledescription="carousel" aria-label="Intentional Thrive highlights">
+    {heroSlides.map((slide, index) => (
+      <article
+        class:list={['hero-slide', index === 0 && 'is-active']}
+        data-hero-slide
+        aria-hidden={index === 0 ? 'false' : 'true'}
+        style={`background-image: ${slide.tint}, url('${slide.image}')`}
+      >
+        <div class="container--wide hero-slide__inner">
+          <p class="hero-slide__quote">&ldquo;{slide.quote}&rdquo;</p>
+          <p class="hero-slide__tagline">{slide.tagline}</p>
+          <p class="hero-slide__copy">{slide.copy}</p>
+          <a href={slide.href} class="hero-slide__cta">{slide.cta}</a>
+        </div>
+      </article>
+    ))}
+
+    <div class="hero-slider__controls">
+      <button type="button" data-hero-prev aria-label="Previous slide"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+      <button type="button" data-hero-next aria-label="Next slide"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+    </div>
+  </section>
+
+  <section class="quicklinks" aria-label="Quick links">
+    <div class="container--wide quicklinks__inner">
+      <div class="quicklinks__main">
+        <p class="quicklinks__label">I am looking to&hellip;</p>
+        <div class="quicklinks__track" data-quick-track>
+          {quickLinks.map((link) => (
+            <a href={link.href} class="quicklinks__item">
+              <i class={`ti ${link.icon}`} aria-hidden="true"></i>
+              <span>{link.label}</span>
+            </a>
+          ))}
+        </div>
+        <div class="quicklinks__controls">
+          <button type="button" data-quick-prev aria-label="Scroll quick links left"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+          <button type="button" data-quick-next aria-label="Scroll quick links right"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
         </div>
       </div>
 
-      <div class="hero-panel" aria-label="Intentional Thrive readiness snapshot">
-        <div class="panel-header">
-          <span>Thrive Readiness</span>
-          <strong>Start with the gaps.</strong>
-        </div>
-        <div class="readiness-bars">
-          <div class="readiness-row">
-            <span>Protection</span>
-            <div><i style="width: 72%"></i></div>
-          </div>
-          <div class="readiness-row">
-            <span>Cash Flow</span>
-            <div><i style="width: 48%"></i></div>
-          </div>
-          <div class="readiness-row">
-            <span>Growth Plan</span>
-            <div><i style="width: 58%"></i></div>
-          </div>
-          <div class="readiness-row">
-            <span>Intention</span>
-            <div><i style="width: 86%"></i></div>
-          </div>
-        </div>
-        <p>No pressure. No jargon. Just a clear next step.</p>
+      <aside class="quicklinks__aside">
+        <p>Need help with your policy?</p>
+        <a href="/assessment"><i class="ti ti-send" aria-hidden="true"></i> Get in touch</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="help-tabs">
+    <div class="container--wide">
+      <h2 class="help-tabs__title">How can we <strong>help?</strong></h2>
+
+      <div class="help-tabs__nav" role="tablist">
+        {helpTabs.map((tab, index) => (
+          <button
+            type="button"
+            role="tab"
+            id={`tab-${tab.id}`}
+            aria-controls={`panel-${tab.id}`}
+            aria-selected={index === 0 ? 'true' : 'false'}
+            class:list={['help-tabs__tab', index === 0 && 'is-active']}
+            data-tab={tab.id}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
+
+      {helpTabs.map((tab, index) => (
+        <div
+          class:list={['help-tabs__panel', index === 0 && 'is-active']}
+          id={`panel-${tab.id}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${tab.id}`}
+          data-panel={tab.id}
+          hidden={index !== 0}
+        >
+          {tab.cards.map((card) => (
+            <a href={card.href} class="help-card">
+              <h3>{card.title}</h3>
+              <p>{card.copy}</p>
+              <span>Learn more <i class="ti ti-arrow-right" aria-hidden="true"></i></span>
+            </a>
+          ))}
+        </div>
+      ))}
     </div>
   </section>
 
@@ -58,6 +169,34 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
       <div><strong>600+</strong><span>Policies under care</span></div>
       <div><strong>2023</strong><span>Unit manager</span></div>
       <div><strong>PH</strong><span>Built for Filipino professionals</span></div>
+    </div>
+  </section>
+
+  <section class="pathway-section">
+    <div class="container--wide">
+      <div class="section-heading compact">
+        <p class="eyebrow">Find Your Path</p>
+        <h2>One brand, three useful doors.</h2>
+        <p>Intentional Thrive is built to help people understand money, make better decisions, and see the kind of leadership Venus brings to financial services.</p>
+      </div>
+
+      <div class="hub-grid">
+        <a href="/start-here" class="hub-card">
+          <span class="hub-card__label">For Readers</span>
+          <h3>Start with the question that sounds like your life.</h3>
+          <p>Follow guided pathways for insurance clarity, money mindset, family financial conversations, and intentional living.</p>
+        </a>
+        <a href="/assessment" class="hub-card">
+          <span class="hub-card__label">For Clients</span>
+          <h3>Get a free financial readiness assessment.</h3>
+          <p>Review cash flow, protection gaps, existing coverage, and your next best move with a calmer process.</p>
+        </a>
+        <a href="/join-the-team" class="hub-card hub-card--dark">
+          <span class="hub-card__label">For Future Advisors</span>
+          <h3>Explore a career built on service and clarity.</h3>
+          <p>Learn Venus's mentorship approach and whether financial services fits your goals, strengths, and life season.</p>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -89,19 +228,19 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
     </div>
   </section>
 
-  <section class="decision-section">
+  <section class="decision-section" id="career">
     <div class="container--wide decision-grid">
       <div class="decision-card primary">
         <p class="eyebrow">For Clients</p>
         <h2>Start with a free financial readiness assessment.</h2>
         <p>Get a calm review of your current situation: budget, family responsibilities, insurance, risk, and goals.</p>
-        <a href="/about#connect" class="btn btn--primary">Book the assessment</a>
+        <a href="/assessment" class="btn btn--primary">Book the assessment</a>
       </div>
       <div class="decision-card dark">
         <p class="eyebrow">For Future Advisors</p>
         <h2>Explore a career built on service and clarity.</h2>
         <p>If you want meaningful work with income growth and mentorship, start a conversation with Venus.</p>
-        <a href="/about#connect" class="btn btn--dark">Join the team</a>
+        <a href="/join-the-team" class="btn btn--dark">Join the team</a>
       </div>
     </div>
   </section>
@@ -114,8 +253,8 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
       </div>
       <div class="guide-copy">
         <p>Venus is a Pru Life UK Unit Manager, mom, wife, and founder of Intentional Thrive. She created this space for professionals who want honest financial literacy, not overwhelming jargon.</p>
-        <p>The work is simple: protect what matters, understand what you own, and build a life that matches your values.</p>
-        <a href="/about" class="text-link">More about Venus →</a>
+        <p>This site is her public authority hub: client education, career mentorship, practical resources, and a more human way to talk about money.</p>
+        <a href="/about" class="text-link">More about Venus &rarr;</a>
       </div>
     </div>
   </section>
@@ -125,6 +264,7 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
       <div class="section-heading compact">
         <p class="eyebrow">Start Reading</p>
         <h2>Practical notes for an intentional financial life.</h2>
+        <p>Use the articles to understand the issue, then move into a resource or assessment when you are ready to apply it.</p>
       </div>
       <div class="article-grid">
         {recentArticles.map(article => (
@@ -135,6 +275,10 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
           </a>
         ))}
       </div>
+      <div class="btn-row btn-row--center article-strip-actions">
+        <a href="/start-here" class="btn btn--primary">Read by pathway</a>
+        <a href="/resources" class="btn btn--outline">Browse resources</a>
+      </div>
     </div>
   </section>
 
@@ -142,167 +286,417 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
     <div class="container">
       <p class="eyebrow">Ready when you are</p>
       <h2>One clear conversation can change the next decision.</h2>
-      <a href="/about#connect" class="btn-white">Get Free Assessment</a>
+      <a href="/assessment" class="btn-white">Get Free Assessment</a>
     </div>
   </section>
 
 </Base>
 
+<script>
+  // Hero carousel
+  const hero = document.querySelector('[data-hero]');
+  const slides = Array.from(document.querySelectorAll('[data-hero-slide]'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (hero && slides.length > 1) {
+    let index = 0;
+    let timer;
+
+    const show = (next) => {
+      index = (next + slides.length) % slides.length;
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('is-active', i === index);
+        slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+      });
+    };
+
+    const start = () => {
+      if (reduceMotion) return;
+      stop();
+      timer = window.setInterval(() => show(index + 1), 7000);
+    };
+    const stop = () => window.clearInterval(timer);
+
+    document.querySelector('[data-hero-prev]')?.addEventListener('click', () => { show(index - 1); start(); });
+    document.querySelector('[data-hero-next]')?.addEventListener('click', () => { show(index + 1); start(); });
+    hero.addEventListener('mouseenter', stop);
+    hero.addEventListener('mouseleave', start);
+    start();
+  }
+
+  // Quick links horizontal scroll
+  const track = document.querySelector('[data-quick-track]');
+  if (track) {
+    const step = () => Math.max(track.clientWidth * 0.6, 200);
+    document.querySelector('[data-quick-prev]')?.addEventListener('click', () =>
+      track.scrollBy({ left: -step(), behavior: 'smooth' })
+    );
+    document.querySelector('[data-quick-next]')?.addEventListener('click', () =>
+      track.scrollBy({ left: step(), behavior: 'smooth' })
+    );
+  }
+
+  // Help tabs
+  const tabs = Array.from(document.querySelectorAll('[data-tab]'));
+  const panels = Array.from(document.querySelectorAll('[data-panel]'));
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const id = tab.getAttribute('data-tab');
+      tabs.forEach((other) => {
+        const active = other === tab;
+        other.classList.toggle('is-active', active);
+        other.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      panels.forEach((panel) => {
+        const active = panel.getAttribute('data-panel') === id;
+        panel.classList.toggle('is-active', active);
+        panel.hidden = !active;
+      });
+    });
+  });
+</script>
+
 <style>
-.brand-hero {
-  background:
-    linear-gradient(135deg, rgba(24, 48, 40, 0.64), rgba(16, 27, 23, 0.7)),
-    url('/images/intentional-thrive-planning.png');
+/* Hero carousel */
+.hero-slider {
+  display: grid;
+  isolation: isolate;
+  min-height: clamp(460px, 62vh, 660px);
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-slide {
+  align-items: end;
   background-position: center;
   background-size: cover;
   color: #fff;
-  overflow: hidden;
-  padding: 108px 0 92px;
-  position: relative;
-}
-
-.brand-hero::before {
-  background:
-    linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.06) 38%, transparent 68%),
-    linear-gradient(180deg, rgba(214, 189, 120, 0.1), transparent 42%);
-  content: "";
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-}
-
-.brand-hero::after {
-  background: linear-gradient(180deg, transparent 0%, rgba(16, 27, 23, 0.18) 100%);
-  bottom: 0;
-  content: "";
-  height: 34%;
-  left: 0;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-}
-
-.hero-grid {
-  position: relative;
-  z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 390px;
-  gap: 56px;
-  align-items: center;
+  grid-area: 1 / 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s ease;
 }
 
-.eyebrow {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  margin-bottom: 16px;
-  text-transform: uppercase;
+.hero-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.hero-copy h1 {
+.hero-slide__inner {
+  max-width: var(--max-width-wide);
+  padding-bottom: 210px;
+  text-align: center;
+}
+
+.hero-slide.is-active .hero-slide__inner > * {
+  animation: heroReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-slide.is-active .hero-slide__tagline { animation-delay: 0.1s; }
+.hero-slide.is-active .hero-slide__copy { animation-delay: 0.2s; }
+.hero-slide.is-active .hero-slide__cta { animation-delay: 0.3s; }
+
+.hero-slide__quote {
   color: #fff;
   font-family: var(--font-serif);
-  font-size: clamp(52px, 8vw, 92px);
+  font-size: clamp(38px, 6vw, 76px);
   font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 0.96;
-  max-width: 820px;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  margin: 0 auto;
+  max-width: 900px;
 }
 
-.hero-sub {
-  color: rgba(255, 255, 255, 0.84);
-  font-size: 18px;
-  line-height: 1.75;
-  margin: 26px 0 32px;
-  max-width: 640px;
+.hero-slide__tagline {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(18px, 2.4vw, 26px);
+  font-weight: 600;
+  margin: 18px 0 0;
 }
 
-.hero-actions {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+.hero-slide__copy {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 17px;
+  line-height: 1.7;
+  margin: 16px auto 0;
+  max-width: 620px;
 }
 
-.brand-hero .btn--outline {
-  border-color: rgba(255, 255, 255, 0.32);
+.hero-slide__cta {
+  background: var(--color-accent);
+  border-radius: 999px;
   color: #fff;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 800;
+  margin-top: 28px;
+  padding: 15px 34px;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.brand-hero .btn--outline:hover {
+.hero-slide__cta:hover {
+  background: #3f6f50;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.hero-slider__controls {
+  bottom: 130px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  right: 0;
+  z-index: 4;
+}
+
+.hero-slider__controls button {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 18px;
+  height: 42px;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+  width: 42px;
+}
+
+.hero-slider__controls button:hover {
   background: #fff;
-  border-color: #fff;
   color: var(--color-dark);
 }
 
-.hero-panel {
-  background: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 20px;
-  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  color: var(--color-dark) !important;
-  padding: 28px;
+/* Quick links bar (overlaps the hero) */
+.quicklinks {
+  margin-top: -84px;
+  position: relative;
+  z-index: 5;
 }
 
-.panel-header {
-  border-bottom: 1px solid rgba(214, 189, 120, 0.38);
-  margin-bottom: 22px;
-  padding-bottom: 18px;
+.quicklinks__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  min-width: 0;
 }
 
-.panel-header span {
-  color: #4f815f !important;
-  display: block;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.quicklinks__main {
+  align-items: center;
+  background: var(--color-accent);
+  border-radius: 14px 0 0 14px;
+  color: #fff;
+  display: flex;
+  gap: 20px;
+  min-width: 0;
+  padding: 26px;
 }
 
-.panel-header strong {
-  color: #183028 !important;
-  display: block;
-  font-size: 26px;
-  font-weight: 900;
+.quicklinks__label {
+  color: #fff;
+  flex-shrink: 0;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 150px;
+}
+
+.quicklinks__track {
+  display: flex;
+  flex: 1;
+  gap: 14px;
+  min-width: 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.quicklinks__track::-webkit-scrollbar {
+  display: none;
+}
+
+.quicklinks__item {
+  color: #fff;
+  display: grid;
+  flex: 0 0 auto;
+  font-size: 13px;
+  font-weight: 600;
+  gap: 8px;
+  justify-items: center;
+  line-height: 1.3;
+  text-align: center;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  width: 96px;
+}
+
+.quicklinks__item i {
+  font-size: 30px;
+}
+
+.quicklinks__item:hover {
+  color: #fff;
+  opacity: 0.82;
+  transform: translateY(-2px);
+}
+
+.quicklinks__controls {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+.quicklinks__controls button {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.22);
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 18px;
+  height: 40px;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+  width: 40px;
+}
+
+.quicklinks__controls button:hover {
+  background: #fff;
+  color: var(--color-accent);
+}
+
+.quicklinks__aside {
+  background: var(--color-dark);
+  border-radius: 0 14px 14px 0;
+  color: #fff;
+  display: grid;
+  align-content: center;
+  gap: 14px;
+  padding: 26px 30px;
+}
+
+.quicklinks__aside p {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.quicklinks__aside a {
+  align-items: center;
+  background: var(--color-accent-pale);
+  border-radius: 999px;
+  color: var(--color-dark);
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 800;
+  gap: 8px;
+  justify-content: center;
+  padding: 13px 20px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.quicklinks__aside a:hover {
+  background: #fff;
+  color: var(--color-accent);
+}
+
+/* How can we help — tabs */
+.help-tabs {
+  background: #fff;
+  padding: 76px 0 88px;
+}
+
+.help-tabs__title {
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 400;
   letter-spacing: -0.03em;
-  margin-top: 5px;
+  margin-bottom: 26px;
 }
 
-.readiness-bars {
+.help-tabs__title strong {
+  font-weight: 900;
+}
+
+.help-tabs__nav {
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  gap: 30px;
+  margin-bottom: 34px;
+}
+
+.help-tabs__tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: -1px;
+  padding: 0 2px 14px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.help-tabs__tab.is-active {
+  border-bottom-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.help-tabs__panel {
+  display: none;
+  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.help-tabs__panel.is-active {
   display: grid;
-  gap: 16px;
 }
 
-.readiness-row {
-  display: grid;
-  gap: 7px;
+.help-card {
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.readiness-row span {
-  color: #183028 !important;
+.help-card:hover {
+  border-color: rgba(79, 129, 95, 0.45);
+  box-shadow: 0 20px 46px rgba(24, 48, 40, 0.1);
+  color: inherit;
+  transform: translateY(-3px);
+}
+
+.help-card h3 {
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.help-card p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+.help-card span {
+  color: var(--color-accent);
   font-size: 13px;
   font-weight: 800;
-}
-
-.readiness-row div {
-  background: linear-gradient(90deg, #edf5ef, #f7faf8);
-  border-radius: 999px;
-  height: 10px;
-  overflow: hidden;
-}
-
-.readiness-row i {
-  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
-  border-radius: inherit;
-  box-shadow: 0 0 18px rgba(79, 129, 95, 0.2);
-  display: block;
-  height: 100%;
-}
-
-.hero-panel p {
-  color: #555555 !important;
-  font-size: 14px;
-  margin-top: 22px;
+  margin-top: auto;
 }
 
 .proof-band {
@@ -338,6 +732,7 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
 .clarity-map,
 .decision-section,
 .guide-section,
+.pathway-section,
 .article-strip {
   padding: 88px 0;
 }
@@ -433,6 +828,10 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
   background: #fff;
 }
 
+.pathway-section {
+  background: #fff;
+}
+
 .decision-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -503,6 +902,10 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
 
 .article-strip {
   background: #fff;
+}
+
+.article-strip-actions {
+  margin-top: 32px;
 }
 
 .article-grid {
@@ -581,8 +984,28 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
   color: var(--color-accent);
 }
 
+@media (max-width: 1024px) {
+  .quicklinks__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .quicklinks__main {
+    border-radius: 14px 14px 0 0;
+  }
+
+  .quicklinks__aside {
+    border-radius: 0 0 14px 14px;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .help-tabs__panel.is-active {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 900px) {
-  .hero-grid,
   .decision-grid,
   .guide-grid,
   .article-grid,
@@ -594,8 +1017,38 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .brand-hero {
-    padding: 72px 0;
+  .hero-slide__inner {
+    padding-bottom: 60px;
+  }
+
+  .hero-slider__controls {
+    bottom: 24px;
+  }
+
+  .quicklinks {
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .quicklinks__main {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 22px;
+  }
+
+  .quicklinks__label {
+    font-size: 19px;
+    max-width: none;
+    width: 100%;
+  }
+
+  .quicklinks__controls {
+    display: none;
+  }
+
+  .help-tabs__panel.is-active {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -605,9 +1058,29 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
   }
 
   .decision-card,
-  .guide-copy,
-  .hero-panel {
+  .guide-copy {
     padding: 26px;
+  }
+}
+
+@keyframes heroReveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide.is-active .hero-slide__inner > * {
+    animation: none;
+  }
+
+  .hero-slide {
+    transition: none;
   }
 }
 </style>
