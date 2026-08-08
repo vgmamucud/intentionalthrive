@@ -73,6 +73,18 @@ const searchIndex = [
   <!-- Header -->
   <header class="site-header" data-site-header>
 
+    <!-- Utility bar -->
+    <div class="utility-bar">
+      <div class="utility-bar__inner">
+        {utilityLinks.map((link) => (
+          <a href={link.href} class="utility-bar__link">
+            <i class={`ti ${link.icon}`} aria-hidden="true"></i>
+            <span>{link.label}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+
     <!-- Main navigation -->
     <div class="masthead">
       <div class="masthead__inner">
@@ -133,18 +145,6 @@ const searchIndex = [
             <i class="ti ti-menu-2" aria-hidden="true"></i>
           </button>
         </div>
-      </div>
-    </div>
-
-    <!-- Utility bar -->
-    <div class="utility-bar">
-      <div class="utility-bar__inner">
-        {utilityLinks.map((link) => (
-          <a href={link.href} class="utility-bar__link">
-            <i class={`ti ${link.icon}`} aria-hidden="true"></i>
-            <span>{link.label}</span>
-          </a>
-        ))}
       </div>
     </div>
 
