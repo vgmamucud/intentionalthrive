@@ -1,90 +1,26 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ThrivePath from '../components/ThrivePath.astro';
 
+const homepageEntry = await getEntry('homepage', 'main');
+if (!homepageEntry) {
+  throw new Error('Missing homepage content: src/content/homepage/main.json');
+}
+
+const homepage = homepageEntry.data;
 const recentArticles = (await getCollection('articles', ({ data }) => !data.draft))
   .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
   .slice(0, 3);
-
-// Hero carousel. Each slide: its own photo (public/images/hero-*.png), a focal point
-// biased toward the top so faces stay clear of the text sitting near the bottom, and a
-// tint tuned for white overlay text against that specific photo.
-const heroSlides = [
-  {
-    quote: 'I will help you get ahead.',
-    tagline: 'Clarity, made practical',
-    copy: 'For Filipino professionals who are earning, leading, parenting, and quietly wondering if their money is finally working in the right direction.',
-    cta: 'Learn more',
-    href: '/start-here',
-    image: '/images/hero-understand.jpg',
-    focal: '62% 32%',
-    zoom: 'cover',
-    tint: 'linear-gradient(135deg, rgba(24, 48, 40, 0.66), rgba(16, 27, 23, 0.6))',
-  },
-  {
-    quote: 'I will protect what you built.',
-    tagline: 'Protection, understood',
-    copy: 'Know what your coverage actually does before you buy anything new, and what happens to your family if income stops.',
-    cta: 'Review your coverage',
-    href: '/resources/life-insurance-review-guide',
-    image: '/images/hero-decide.jpg',
-    focal: '50% 15%',
-    zoom: 'cover',
-    tint: 'linear-gradient(135deg, rgba(16, 27, 23, 0.7), rgba(79, 129, 95, 0.5))',
-  },
-  {
-    quote: 'I will walk you through it.',
-    tagline: 'A calmer process',
-    copy: 'A free financial readiness assessment: cash flow, protection gaps, existing coverage, and your next best move.',
-    cta: 'Get free assessment',
-    href: '/assessment',
-    image: '/images/hero-build.jpg',
-    focal: '50% 18%',
-    zoom: 'cover',
-    tint: 'linear-gradient(135deg, rgba(24, 48, 40, 0.72), rgba(24, 48, 40, 0.46))',
-  },
-];
-
-const quickLinks = [
-  { label: 'Protect my family', icon: 'ti-heart-plus', href: '/blog/what-life-insurance-actually-is' },
-  { label: 'Understand my policy', icon: 'ti-shield-plus', href: '/resources/life-insurance-review-guide' },
-  { label: 'Build my wealth', icon: 'ti-chart-histogram', href: '/blog/money-didnt-change-me' },
-  { label: 'Check my readiness', icon: 'ti-clipboard-check', href: '/resources/financial-readiness-checklist' },
-  { label: 'Explore a career', icon: 'ti-users-group', href: '/join-the-team' },
-];
-
-const helpTabs = [
-  {
-    id: 'existing',
-    label: 'Existing clients',
-    cards: [
-      { title: 'Review my policy', copy: 'Check what your coverage includes before renewing or adding anything.', href: '/resources/life-insurance-review-guide' },
-      { title: 'Understand my VUL', copy: 'Charges, fund value, and benefits explained without the jargon.', href: '/resources/vul-clarity-sheet' },
-      { title: 'Talk with Venus', copy: 'Bring a question and get a calm, unhurried answer.', href: '/assessment' },
-      { title: 'Download free guides', copy: 'Worksheets for readiness, coverage, and money conversations.', href: '/resources' },
-    ],
-  },
-  {
-    id: 'new',
-    label: 'New here',
-    cards: [
-      { title: 'Start with your question', copy: 'Pick the pathway that sounds most like your life right now.', href: '/start-here' },
-      { title: 'Get a free assessment', copy: 'A structured look at cash flow, protection, and next steps.', href: '/assessment' },
-      { title: 'Read the articles', copy: 'Practical notes on money mindset, wealth, and intentional living.', href: '/blog' },
-      { title: 'Join the team', copy: 'Explore a financial services career built on service and mentorship.', href: '/join-the-team' },
-    ],
-  },
-];
 ---
 
 <Base
-  title="Intentional Thrive — Financial Clarity for Filipino Professionals"
-  description="A modern financial clarity space for Filipino professionals who want to protect what matters and build with intention."
+  title={homepage.seo.title}
+  description={homepage.seo.description}
 >
 
   <section class="hero-slider" data-hero aria-roledescription="carousel" aria-label="Intentional Thrive highlights">
-    {heroSlides.map((slide, index) => (
+    {homepage.heroSlides.map((slide, index) => (
       <article
         class:list={['hero-slide', index === 0 && 'is-active']}
         data-hero-slide
@@ -111,7 +47,7 @@ const helpTabs = [
       <div class="quicklinks__main">
         <p class="quicklinks__label">I am looking to&hellip;</p>
         <div class="quicklinks__track" data-quick-track>
-          {quickLinks.map((link) => (
+          {homepage.quickLinks.map((link) => (
             <a href={link.href} class="quicklinks__item">
               <i class={`ti ${link.icon}`} aria-hidden="true"></i>
               <span>{link.label}</span>
@@ -125,18 +61,18 @@ const helpTabs = [
       </div>
 
       <aside class="quicklinks__aside">
-        <p>Need help with your policy?</p>
-        <a href="/assessment"><i class="ti ti-send" aria-hidden="true"></i> Get in touch</a>
+        <p>{homepage.quickAside.text}</p>
+        <a href={homepage.quickAside.href}><i class="ti ti-send" aria-hidden="true"></i> {homepage.quickAside.cta}</a>
       </aside>
     </div>
   </section>
 
   <section class="help-tabs">
     <div class="container--wide">
-      <h2 class="help-tabs__title">How can we <strong>help?</strong></h2>
+      <h2 class="help-tabs__title">{homepage.helpTitle} <strong>{homepage.helpTitleAccent}</strong></h2>
 
       <div class="help-tabs__nav" role="tablist">
-        {helpTabs.map((tab, index) => (
+        {homepage.helpTabs.map((tab, index) => (
           <button
             type="button"
             role="tab"
@@ -151,7 +87,7 @@ const helpTabs = [
         ))}
       </div>
 
-      {helpTabs.map((tab, index) => (
+      {homepage.helpTabs.map((tab, index) => (
         <div
           class:list={['help-tabs__panel', index === 0 && 'is-active']}
           id={`panel-${tab.id}`}
@@ -174,41 +110,30 @@ const helpTabs = [
 
   <section class="proof-band">
     <div class="container--wide proof-grid">
-      <div><strong>Since 2019</strong><span>Financial services experience</span></div>
-      <div><strong>600+</strong><span>Policies under care</span></div>
-      <div><strong>2023</strong><span>Unit manager</span></div>
-      <div><strong>PH</strong><span>Built for Filipino professionals</span></div>
+      {homepage.proofStats.map((stat) => (
+        <div><strong>{stat.value}</strong><span>{stat.label}</span></div>
+      ))}
     </div>
   </section>
 
   <section class="pathway-section">
     <div class="container--wide">
       <div class="section-heading compact">
-        <p class="eyebrow">Find Your Path</p>
-        <h2>One brand, three useful doors.</h2>
-        <p>Intentional Thrive is built to help people understand money, make better decisions, and see the kind of leadership Venus brings to financial services.</p>
+        <p class="eyebrow">{homepage.pathways.eyebrow}</p>
+        <h2>{homepage.pathways.heading}</h2>
+        <p>{homepage.pathways.copy}</p>
         <ThrivePath variant="rule" />
       </div>
 
       <div class="door-grid">
-        <a href="/start-here" class="door">
-          <span class="door__label">For readers</span>
-          <h3>Start with the question that sounds like your life.</h3>
-          <p>Guided pathways for insurance clarity, money mindset, family conversations, and intentional living.</p>
-          <span class="door__link">Find your pathway &rarr;</span>
-        </a>
-        <a href="/assessment" class="door">
-          <span class="door__label">For clients</span>
-          <h3>Get a free financial readiness assessment.</h3>
-          <p>Review cash flow, protection gaps, existing coverage, and your next best move with a calmer process.</p>
-          <span class="door__link">Book the assessment &rarr;</span>
-        </a>
-        <a href="/join-the-team" class="door">
-          <span class="door__label">For future advisors</span>
-          <h3>Explore a career built on service and clarity.</h3>
-          <p>How Venus mentors, and whether financial services fits your goals, strengths, and life season.</p>
-          <span class="door__link">See what it takes &rarr;</span>
-        </a>
+        {homepage.pathways.doors.map((door) => (
+          <a href={door.href} class="door">
+            <span class="door__label">{door.label}</span>
+            <h3>{door.heading}</h3>
+            <p>{door.copy}</p>
+            <span class="door__link">{door.linkLabel} &rarr;</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -216,61 +141,48 @@ const helpTabs = [
   <section class="journey" id="clarity-map">
     <div class="container--wide">
       <div class="section-heading">
-        <p class="eyebrow">The Core Journey</p>
-        <h2>Understand, then decide, then build.</h2>
-        <p>The first goal is not a product. It is seeing clearly what your financial life is already asking from you.</p>
+        <p class="eyebrow">{homepage.journey.eyebrow}</p>
+        <h2>{homepage.journey.heading}</h2>
+        <p>{homepage.journey.copy}</p>
         <ThrivePath variant="rule" />
       </div>
 
       <div class="journey__path"><ThrivePath variant="journey" /></div>
 
       <div class="journey-grid">
-        <article>
-          <span class="journey__step">Understand</span>
-          <h3>See the money pattern</h3>
-          <p>Where income goes, what keeps repeating, and why higher earnings can still feel tight.</p>
-        </article>
-        <article>
-          <span class="journey__step">Decide</span>
-          <h3>Close the protection gap</h3>
-          <p>What happens if income stops, health changes, or your family needs support quickly.</p>
-        </article>
-        <article>
-          <span class="journey__step">Build</span>
-          <h3>Make the next move</h3>
-          <p>A practical sequence for savings, coverage, investing, and long-term family goals.</p>
-        </article>
+        {homepage.journey.steps.map((step) => (
+          <article>
+            <span class="journey__step">{step.label}</span>
+            <h3>{step.heading}</h3>
+            <p>{step.copy}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
   <section class="decision-section" id="career">
     <div class="container--wide decision-grid">
-      <div class="decision-card primary">
-        <p class="eyebrow">For Clients</p>
-        <h2>Start with a free financial readiness assessment.</h2>
-        <p>Get a calm review of your current situation: budget, family responsibilities, insurance, risk, and goals.</p>
-        <a href="/assessment" class="btn btn--primary">Book the assessment</a>
-      </div>
-      <div class="decision-card dark">
-        <p class="eyebrow">For Future Advisors</p>
-        <h2>Explore a career built on service and clarity.</h2>
-        <p>If you want meaningful work with income growth and mentorship, start a conversation with Venus.</p>
-        <a href="/join-the-team" class="btn btn--dark">Join the team</a>
-      </div>
+      {homepage.decisionCards.map((card) => (
+        <div class:list={['decision-card', card.theme]}>
+          <p class="eyebrow">{card.eyebrow}</p>
+          <h2>{card.heading}</h2>
+          <p>{card.copy}</p>
+          <a href={card.href} class:list={['btn', card.theme === 'dark' ? 'btn--dark' : 'btn--primary']}>{card.cta}</a>
+        </div>
+      ))}
     </div>
   </section>
 
   <section class="guide-section">
     <div class="container--wide guide-grid">
       <div>
-        <p class="eyebrow">Your Guide</p>
-        <h2>Venus helps make the financial conversation easier to understand.</h2>
+        <p class="eyebrow">{homepage.guide.eyebrow}</p>
+        <h2>{homepage.guide.heading}</h2>
       </div>
       <div class="guide-copy">
-        <p>Venus is a Pru Life UK Unit Manager, mom, wife, and founder of Intentional Thrive. She created this space for professionals who want honest financial literacy, not overwhelming jargon.</p>
-        <p>This site is her public authority hub: client education, career mentorship, practical resources, and a more human way to talk about money.</p>
-        <a href="/about" class="text-link">More about Venus &rarr;</a>
+        {homepage.guide.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        <a href={homepage.guide.href} class="text-link">{homepage.guide.cta} &rarr;</a>
       </div>
     </div>
   </section>
@@ -278,9 +190,9 @@ const helpTabs = [
   <section class="article-strip">
     <div class="container--wide">
       <div class="section-heading compact">
-        <p class="eyebrow">Start Reading</p>
-        <h2>Practical notes for an intentional financial life.</h2>
-        <p>Use the articles to understand the issue, then move into a resource or assessment when you are ready to apply it.</p>
+        <p class="eyebrow">{homepage.articleStrip.eyebrow}</p>
+        <h2>{homepage.articleStrip.heading}</h2>
+        <p>{homepage.articleStrip.copy}</p>
         <ThrivePath variant="rule" />
       </div>
       <div class="article-grid">
@@ -293,8 +205,8 @@ const helpTabs = [
         ))}
       </div>
       <div class="btn-row btn-row--center article-strip-actions">
-        <a href="/start-here" class="btn btn--primary">Read by pathway</a>
-        <a href="/resources" class="btn btn--outline">Browse resources</a>
+        <a href={homepage.articleStrip.primaryHref} class="btn btn--primary">{homepage.articleStrip.primaryCta}</a>
+        <a href={homepage.articleStrip.secondaryHref} class="btn btn--outline">{homepage.articleStrip.secondaryCta}</a>
       </div>
     </div>
   </section>
@@ -302,9 +214,9 @@ const helpTabs = [
   <section class="final-banner">
     <div class="final-banner__mark" aria-hidden="true"><ThrivePath variant="mark" /></div>
     <div class="container">
-      <p class="eyebrow">Ready when you are</p>
-      <h2>One clear conversation can change the next decision.</h2>
-      <a href="/assessment" class="btn-white">Get Free Assessment</a>
+      <p class="eyebrow">{homepage.finalCta.eyebrow}</p>
+      <h2>{homepage.finalCta.heading}</h2>
+      <a href={homepage.finalCta.href} class="btn-white">{homepage.finalCta.cta}</a>
     </div>
   </section>
 

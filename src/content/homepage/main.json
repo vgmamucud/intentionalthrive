@@ -1,0 +1,240 @@
+{
+  "seo": {
+    "title": "Intentional Thrive — Financial Clarity for Filipino Professionals",
+    "description": "A modern financial clarity space for Filipino professionals who want to protect what matters and build with intention."
+  },
+  "heroSlides": [
+    {
+      "quote": "I will help you get ahead.",
+      "tagline": "Clarity, made practical",
+      "copy": "For Filipino professionals who are earning, leading, parenting, and quietly wondering if their money is finally working in the right direction.",
+      "cta": "Learn more",
+      "href": "/start-here",
+      "image": "/images/hero-understand.jpg",
+      "focal": "62% 32%",
+      "zoom": "cover",
+      "tint": "linear-gradient(135deg, rgba(24, 48, 40, 0.66), rgba(16, 27, 23, 0.6))"
+    },
+    {
+      "quote": "I will protect what you built.",
+      "tagline": "Protection, understood",
+      "copy": "Know what your coverage actually does before you buy anything new, and what happens to your family if income stops.",
+      "cta": "Review your coverage",
+      "href": "/resources/life-insurance-review-guide",
+      "image": "/images/hero-decide.jpg",
+      "focal": "50% 15%",
+      "zoom": "cover",
+      "tint": "linear-gradient(135deg, rgba(16, 27, 23, 0.7), rgba(79, 129, 95, 0.5))"
+    },
+    {
+      "quote": "I will walk you through it.",
+      "tagline": "A calmer process",
+      "copy": "A free financial readiness assessment: cash flow, protection gaps, existing coverage, and your next best move.",
+      "cta": "Get free assessment",
+      "href": "/assessment",
+      "image": "/images/hero-build.jpg",
+      "focal": "50% 18%",
+      "zoom": "cover",
+      "tint": "linear-gradient(135deg, rgba(24, 48, 40, 0.72), rgba(24, 48, 40, 0.46))"
+    }
+  ],
+  "quickLinks": [
+    {
+      "label": "Protect my family",
+      "icon": "ti-heart-plus",
+      "href": "/blog/what-life-insurance-actually-is"
+    },
+    {
+      "label": "Understand my policy",
+      "icon": "ti-shield-plus",
+      "href": "/resources/life-insurance-review-guide"
+    },
+    {
+      "label": "Build my wealth",
+      "icon": "ti-chart-histogram",
+      "href": "/blog/money-didnt-change-me"
+    },
+    {
+      "label": "Check my readiness",
+      "icon": "ti-clipboard-check",
+      "href": "/resources/financial-readiness-checklist"
+    },
+    {
+      "label": "Explore a career",
+      "icon": "ti-users-group",
+      "href": "/join-the-team"
+    }
+  ],
+  "quickAside": {
+    "text": "Need help with your policy?",
+    "cta": "Get in touch",
+    "href": "/assessment"
+  },
+  "helpTitle": "How can we",
+  "helpTitleAccent": "help?",
+  "helpTabs": [
+    {
+      "id": "existing",
+      "label": "Existing clients",
+      "cards": [
+        {
+          "title": "Review my policy",
+          "copy": "Check what your coverage includes before renewing or adding anything.",
+          "href": "/resources/life-insurance-review-guide"
+        },
+        {
+          "title": "Understand my VUL",
+          "copy": "Charges, fund value, and benefits explained without the jargon.",
+          "href": "/resources/vul-clarity-sheet"
+        },
+        {
+          "title": "Talk with Venus",
+          "copy": "Bring a question and get a calm, unhurried answer.",
+          "href": "/assessment"
+        },
+        {
+          "title": "Download free guides",
+          "copy": "Worksheets for readiness, coverage, and money conversations.",
+          "href": "/resources"
+        }
+      ]
+    },
+    {
+      "id": "new",
+      "label": "New here",
+      "cards": [
+        {
+          "title": "Start with your question",
+          "copy": "Pick the pathway that sounds most like your life right now.",
+          "href": "/start-here"
+        },
+        {
+          "title": "Get a free assessment",
+          "copy": "A structured look at cash flow, protection, and next steps.",
+          "href": "/assessment"
+        },
+        {
+          "title": "Read the articles",
+          "copy": "Practical notes on money mindset, wealth, and intentional living.",
+          "href": "/blog"
+        },
+        {
+          "title": "Join the team",
+          "copy": "Explore a financial services career built on service and mentorship.",
+          "href": "/join-the-team"
+        }
+      ]
+    }
+  ],
+  "proofStats": [
+    {
+      "value": "Since 2019",
+      "label": "Financial services experience"
+    },
+    {
+      "value": "600+",
+      "label": "Policies under care"
+    },
+    {
+      "value": "2023",
+      "label": "Unit manager"
+    },
+    {
+      "value": "PH",
+      "label": "Built for Filipino professionals"
+    }
+  ],
+  "pathways": {
+    "eyebrow": "Find Your Path",
+    "heading": "One brand, three useful doors.",
+    "copy": "Intentional Thrive is built to help people understand money, make better decisions, and see the kind of leadership Venus brings to financial services.",
+    "doors": [
+      {
+        "label": "For readers",
+        "heading": "Start with the question that sounds like your life.",
+        "copy": "Guided pathways for insurance clarity, money mindset, family conversations, and intentional living.",
+        "href": "/start-here",
+        "linkLabel": "Find your pathway"
+      },
+      {
+        "label": "For clients",
+        "heading": "Get a free financial readiness assessment.",
+        "copy": "Review cash flow, protection gaps, existing coverage, and your next best move with a calmer process.",
+        "href": "/assessment",
+        "linkLabel": "Book the assessment"
+      },
+      {
+        "label": "For future advisors",
+        "heading": "Explore a career built on service and clarity.",
+        "copy": "How Venus mentors, and whether financial services fits your goals, strengths, and life season.",
+        "href": "/join-the-team",
+        "linkLabel": "See what it takes"
+      }
+    ]
+  },
+  "journey": {
+    "eyebrow": "The Core Journey",
+    "heading": "Understand, then decide, then build.",
+    "copy": "The first goal is not a product. It is seeing clearly what your financial life is already asking from you.",
+    "steps": [
+      {
+        "label": "Understand",
+        "heading": "See the money pattern",
+        "copy": "Where income goes, what keeps repeating, and why higher earnings can still feel tight."
+      },
+      {
+        "label": "Decide",
+        "heading": "Close the protection gap",
+        "copy": "What happens if income stops, health changes, or your family needs support quickly."
+      },
+      {
+        "label": "Build",
+        "heading": "Make the next move",
+        "copy": "A practical sequence for savings, coverage, investing, and long-term family goals."
+      }
+    ]
+  },
+  "decisionCards": [
+    {
+      "theme": "primary",
+      "eyebrow": "For Clients",
+      "heading": "Start with a free financial readiness assessment.",
+      "copy": "Get a calm review of your current situation: budget, family responsibilities, insurance, risk, and goals.",
+      "cta": "Book the assessment",
+      "href": "/assessment"
+    },
+    {
+      "theme": "dark",
+      "eyebrow": "For Future Advisors",
+      "heading": "Explore a career built on service and clarity.",
+      "copy": "If you want meaningful work with income growth and mentorship, start a conversation with Venus.",
+      "cta": "Join the team",
+      "href": "/join-the-team"
+    }
+  ],
+  "guide": {
+    "eyebrow": "Your Guide",
+    "heading": "Venus helps make the financial conversation easier to understand.",
+    "paragraphs": [
+      "Venus is a Pru Life UK Unit Manager, mom, wife, and founder of Intentional Thrive. She created this space for professionals who want honest financial literacy, not overwhelming jargon.",
+      "This site is her public authority hub: client education, career mentorship, practical resources, and a more human way to talk about money."
+    ],
+    "cta": "More about Venus",
+    "href": "/about"
+  },
+  "articleStrip": {
+    "eyebrow": "Start Reading",
+    "heading": "Practical notes for an intentional financial life.",
+    "copy": "Use the articles to understand the issue, then move into a resource or assessment when you are ready to apply it.",
+    "primaryCta": "Read by pathway",
+    "primaryHref": "/start-here",
+    "secondaryCta": "Browse resources",
+    "secondaryHref": "/resources"
+  },
+  "finalCta": {
+    "eyebrow": "Ready when you are",
+    "heading": "One clear conversation can change the next decision.",
+    "cta": "Get Free Assessment",
+    "href": "/assessment"
+  }
+}
