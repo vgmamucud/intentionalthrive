@@ -1,6 +1,6 @@
 ---
-title: "The life you want is shaped by the small decisions you repeat when no one is watchi..."
-description: "A practical Intentional Thrive reflection for clients, agents, women, and community members: The life you want is shaped by the small decisions you repeat w"
+title: "The Life You Want Is Shaped by the Small Decisions You Repeat When No One Is Watching"
+description: "Small decisions repeated with intention shape the life you are building, especially when no one is watching."
 pubDate: "August 2026"
 pillar: "Intentional Living"
 readTime: "6 min"
@@ -9,7 +9,7 @@ draft: false
 
 Most people do not need another rule for how to live, lead, earn, or plan. They need a clearer way to look at the decision already sitting in front of them.
 
-That is why this idea matters: **The life you want is shaped by the small decisions you repeat when no one is watching. For this week, connect this to intentional living, life readiness, leadership, and steady growth..**
+That is why this idea matters: **The life you want is shaped by the small decisions you repeat when no one is watching.**
 
 For clients, agents, women, and community members, the pressure can feel constant. You are trying to make wise choices for your family, serve clients well, grow in your work, protect your future, and still stay present in the life you are building. It is easy to believe the answer is to move faster, consume more advice, or wait until the timing feels perfect.
 
@@ -124,4 +124,4 @@ It is the way you keep becoming the kind of person who can hold growth with disc
 
 So start here: choose one thing that deserves your attention this week. Name it clearly. Take one aligned step. Let that step count.
 
-save this, share it with someone who needs it, or reply with the next step you are choosing.
+Save this, share it with someone who needs it, or reply with the next step you are choosing.
