@@ -4,7 +4,7 @@ description: "A practical Intentional Thrive reflection for clients, agents, wom
 pubDate: "August 2026"
 pillar: "Intentional Living"
 readTime: "6 min"
-draft: true
+draft: false
 ---
 
 Most people do not need another rule for how to live, lead, earn, or plan. They need a clearer way to look at the decision already sitting in front of them.
