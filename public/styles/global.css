@@ -3,19 +3,25 @@
    Modern advisor profile system
    =========================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300..800;1,300..700&display=swap');
 
 :root {
-  --color-bg: #f7faf8;
-  --color-bg-alt: #edf5ef;
+  --color-bg: #f8f5ee;
+  --color-bg-alt: #f0eee2;
   --color-surface: #ffffff;
-  --color-border: #dce8df;
-  --color-text: #252525;
+  --color-border: #dcd8cc;
+  --color-text: #1f2a24;
   --color-text-muted: #666666;
   --color-accent: #4f815f;
   --color-accent-light: #6fa17d;
   --color-accent-pale: #edf5ef;
   --color-gold: #d6bd78;
+  --color-lime: #dfeeb4;
+  --color-butter: #f4efbd;
+  --color-blue: #cfe0f1;
+  --color-blush: #f6d9e0;
+  --font-display: 'Fraunces', Georgia, serif;
   --color-heading: #183028;
   --color-dark: #183028;
   --color-dark-alt: #101b17;

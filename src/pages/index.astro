@@ -1,4 +1,5 @@
 ---
+
 import { getCollection, getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ThrivePath from '../components/ThrivePath.astro';
@@ -12,95 +13,97 @@ const homepage = homepageEntry.data;
 const recentArticles = (await getCollection('articles', ({ data }) => !data.draft))
   .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
   .slice(0, 3);
+const hero = homepage.heroSlides[0];
+const stepPhotos = ['/images/hero-understand.jpg', '/images/hero-decide.jpg', '/images/hero-build.jpg'];
+const tones = ['blush', 'lime', 'butter', 'blue'];
+
 ---
 
-<Base
-  title={homepage.seo.title}
-  description={homepage.seo.description}
->
+<Base title={homepage.seo.title} description={homepage.seo.description}>
 
-  <section class="hero-slider" data-hero aria-roledescription="carousel" aria-label="Intentional Thrive highlights">
-    {homepage.heroSlides.map((slide, index) => (
-      <article
-        class:list={['hero-slide', index === 0 && 'is-active']}
-        data-hero-slide
-        aria-hidden={index === 0 ? 'false' : 'true'}
-        style={`background-image: ${slide.tint}, url('${slide.image}'); background-position: ${slide.focal}; background-size: ${slide.zoom}`}
-      >
-        <div class="container--wide hero-slide__inner">
-          <p class="hero-slide__quote">&ldquo;{slide.quote}&rdquo;</p>
-          <p class="hero-slide__tagline">{slide.tagline}</p>
-          <p class="hero-slide__copy">{slide.copy}</p>
-          <a href={slide.href} class="hero-slide__cta">{slide.cta}</a>
+  <div class="rb">
+  <!-- HERO -->
+  <section class="rb-hero">
+    <div class="rb-wrap rb-hero-grid">
+      <div>
+        <div class="rb-meta"><span>Intentional Thrive</span><b>Clarity, made practical</b></div>
+        <h1>Money clarity for people who are <span class="mark"><i>done drifting.</i></span></h1>
+        <p class="lede">{hero.copy}</p>
+        <div class="rb-actions">
+          <a class="rb-btn" href={hero.href}>{hero.cta}</a>
+          <a class="rb-link" href="/blog">Read the journal &rarr;</a>
         </div>
-      </article>
-    ))}
-
-    <div class="hero-slider__controls">
-      <button type="button" data-hero-prev aria-label="Previous slide"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
-      <button type="button" data-hero-next aria-label="Next slide"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
-    </div>
-  </section>
-
-  <section class="quicklinks" aria-label="Quick links">
-    <div class="container--wide quicklinks__inner">
-      <div class="quicklinks__main">
-        <p class="quicklinks__label">I am looking to&hellip;</p>
-        <div class="quicklinks__track" data-quick-track>
-          {homepage.quickLinks.map((link) => (
-            <a href={link.href} class="quicklinks__item">
-              <i class={`ti ${link.icon}`} aria-hidden="true"></i>
-              <span>{link.label}</span>
-            </a>
-          ))}
-        </div>
-        <div class="quicklinks__controls">
-          <button type="button" data-quick-prev aria-label="Scroll quick links left"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
-          <button type="button" data-quick-next aria-label="Scroll quick links right"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
-        </div>
+        <ThrivePath variant="rule" />
       </div>
-
-      <aside class="quicklinks__aside">
-        <p>{homepage.quickAside.text}</p>
-        <a href={homepage.quickAside.href}><i class="ti ti-send" aria-hidden="true"></i> {homepage.quickAside.cta}</a>
-      </aside>
+      <div class="rb-photo">
+        <img class="rb-photo__img" src={hero.image} alt="" />
+        <img class="stk s-washi" src="/images/stickers/washi-orange.png" alt="" />
+        <img class="stk s-star" src="/images/stickers/gingham-star.png" alt="" />
+        <img class="stk s-bow" src="/images/stickers/bow.png" alt="" />
+        <span class="sticker-note">understand &rarr; decide &rarr; build</span>
+      </div>
     </div>
   </section>
 
-  <section class="help-tabs">
-    <div class="container--wide">
-      <h2 class="help-tabs__title">{homepage.helpTitle} <strong>{homepage.helpTitleAccent}</strong></h2>
-
-      <div class="help-tabs__nav" role="tablist">
-        {homepage.helpTabs.map((tab, index) => (
-          <button
-            type="button"
-            role="tab"
-            id={`tab-${tab.id}`}
-            aria-controls={`panel-${tab.id}`}
-            aria-selected={index === 0 ? 'true' : 'false'}
-            class:list={['help-tabs__tab', index === 0 && 'is-active']}
-            data-tab={tab.id}
-          >
-            {tab.label}
-          </button>
+  <!-- QUICK LINKS -->
+  <section class="quicklinks" aria-label="Quick links">
+    <div class="rb-wrap quicklinks__inner">
+      <p class="quicklinks__label">I am looking to&hellip;</p>
+      <div class="quicklinks__track" data-quick-track>
+        {homepage.quickLinks.map((link) => (
+          <a href={link.href} class="quicklinks__item">
+            <i class={`ti ${link.icon}`} aria-hidden="true"></i>
+            <span>{link.label}</span>
+          </a>
         ))}
       </div>
+      <div class="quicklinks__controls">
+        <button type="button" data-quick-prev aria-label="Scroll quick links left"><i class="ti ti-chevron-left" aria-hidden="true"></i></button>
+        <button type="button" data-quick-next aria-label="Scroll quick links right"><i class="ti ti-chevron-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </section>
 
+  <!-- JOURNEY -->
+  <section class="rb-sec" id="clarity-map">
+    <div class="rb-wrap rel">
+      <img class="stk j-clip" src="/images/stickers/binder-clip.png" alt="" />
+      <span class="rb-eyebrow">{homepage.journey.eyebrow}</span>
+      <h2>{homepage.journey.heading}</h2>
+      <p class="sub">{homepage.journey.copy}</p>
+      <div class="rb-steps">
+        {homepage.journey.steps.map((step, i) => (
+          <article>
+            <div class="step-photo"><img src={stepPhotos[i]} alt="" loading="lazy" /></div>
+            <span class="num">0{i + 1}</span>
+            <span class="rb-eyebrow">{step.label}</span>
+            <h3>{step.heading}</h3>
+            <p>{step.copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HELP TABS -->
+  <section class="help-tabs">
+    <div class="rb-wrap">
+      <h2 class="help-tabs__title">{homepage.helpTitle} <span class="mark"><i>{homepage.helpTitleAccent}</i></span></h2>
+      <div class="help-tabs__nav" role="tablist">
+        {homepage.helpTabs.map((tab, index) => (
+          <button type="button" role="tab" id={`tab-${tab.id}`} aria-controls={`panel-${tab.id}`}
+            aria-selected={index === 0 ? 'true' : 'false'}
+            class:list={['help-tabs__tab', index === 0 && 'is-active']} data-tab={tab.id}>{tab.label}</button>
+        ))}
+      </div>
       {homepage.helpTabs.map((tab, index) => (
-        <div
-          class:list={['help-tabs__panel', index === 0 && 'is-active']}
-          id={`panel-${tab.id}`}
-          role="tabpanel"
-          aria-labelledby={`tab-${tab.id}`}
-          data-panel={tab.id}
-          hidden={index !== 0}
-        >
-          {tab.cards.map((card) => (
-            <a href={card.href} class="help-card">
+        <div class:list={['help-tabs__panel', index === 0 && 'is-active']} id={`panel-${tab.id}`} role="tabpanel"
+          aria-labelledby={`tab-${tab.id}`} data-panel={tab.id} hidden={index !== 0}>
+          {tab.cards.map((card, ci) => (
+            <a href={card.href} class={`help-card tone-${tones[ci % tones.length]}`}>
               <h3>{card.title}</h3>
               <p>{card.copy}</p>
-              <span>Learn more <i class="ti ti-arrow-right" aria-hidden="true"></i></span>
+              <span>Learn more &rarr;</span>
             </a>
           ))}
         </div>
@@ -108,26 +111,38 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
     </div>
   </section>
 
+  <!-- PULL QUOTE -->
+  <section class="rb-quote">
+    <div class="rb-wrap">
+      <div class="stamp">
+        <img class="stk q-flower" src="/images/stickers/gingham-flower.png" alt="" />
+        <p class="serif-q">Clarity before <em>complexity.</em></p>
+        <div class="chips"><span class="c1">understand</span><span class="c2">decide</span><span class="c3">build</span></div>
+        <p class="stamp-copy">See what you own and owe, decide with a calm head, then build a system that keeps working when life gets loud.</p>
+        <img class="stk q-daisy" src="/images/stickers/daisy.png" alt="" />
+        <img class="stk q-pin" src="/images/stickers/pushpin.png" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
   <section class="proof-band">
-    <div class="container--wide proof-grid">
+    <div class="rb-wrap proof-grid">
       {homepage.proofStats.map((stat) => (
         <div><strong>{stat.value}</strong><span>{stat.label}</span></div>
       ))}
     </div>
   </section>
 
-  <section class="pathway-section">
-    <div class="container--wide">
-      <div class="section-heading compact">
-        <p class="eyebrow">{homepage.pathways.eyebrow}</p>
-        <h2>{homepage.pathways.heading}</h2>
-        <p>{homepage.pathways.copy}</p>
-        <ThrivePath variant="rule" />
-      </div>
-
+  <!-- PATHWAYS -->
+  <section class="rb-sec">
+    <div class="rb-wrap">
+      <span class="rb-eyebrow">{homepage.pathways.eyebrow}</span>
+      <h2>{homepage.pathways.heading}</h2>
+      <p class="sub">{homepage.pathways.copy}</p>
       <div class="door-grid">
-        {homepage.pathways.doors.map((door) => (
-          <a href={door.href} class="door">
+        {homepage.pathways.doors.map((door, i) => (
+          <a href={door.href} class={`door tone-${tones[i % tones.length]}`}>
             <span class="door__label">{door.label}</span>
             <h3>{door.heading}</h3>
             <p>{door.copy}</p>
@@ -138,122 +153,70 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
     </div>
   </section>
 
-  <section class="journey" id="clarity-map">
-    <div class="container--wide">
-      <div class="section-heading">
-        <p class="eyebrow">{homepage.journey.eyebrow}</p>
-        <h2>{homepage.journey.heading}</h2>
-        <p>{homepage.journey.copy}</p>
-        <ThrivePath variant="rule" />
-      </div>
-
-      <div class="journey__path"><ThrivePath variant="journey" /></div>
-
-      <div class="journey-grid">
-        {homepage.journey.steps.map((step) => (
-          <article>
-            <span class="journey__step">{step.label}</span>
-            <h3>{step.heading}</h3>
-            <p>{step.copy}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
+  <!-- DECISION CARDS -->
   <section class="decision-section" id="career">
-    <div class="container--wide decision-grid">
+    <div class="rb-wrap decision-grid">
       {homepage.decisionCards.map((card) => (
         <div class:list={['decision-card', card.theme]}>
-          <p class="eyebrow">{card.eyebrow}</p>
+          <span class="rb-eyebrow">{card.eyebrow}</span>
           <h2>{card.heading}</h2>
           <p>{card.copy}</p>
-          <a href={card.href} class:list={['btn', card.theme === 'dark' ? 'btn--dark' : 'btn--primary']}>{card.cta}</a>
+          <a href={card.href} class="rb-btn">{card.cta}</a>
         </div>
       ))}
     </div>
   </section>
 
+  <!-- GUIDE -->
   <section class="guide-section">
-    <div class="container--wide guide-grid">
+    <div class="rb-wrap guide-grid">
       <div>
-        <p class="eyebrow">{homepage.guide.eyebrow}</p>
+        <span class="rb-eyebrow">{homepage.guide.eyebrow}</span>
         <h2>{homepage.guide.heading}</h2>
       </div>
       <div class="guide-copy">
         {homepage.guide.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-        <a href={homepage.guide.href} class="text-link">{homepage.guide.cta} &rarr;</a>
+        <a href={homepage.guide.href} class="rb-link">{homepage.guide.cta} &rarr;</a>
       </div>
     </div>
   </section>
 
-  <section class="article-strip">
-    <div class="container--wide">
-      <div class="section-heading compact">
-        <p class="eyebrow">{homepage.articleStrip.eyebrow}</p>
-        <h2>{homepage.articleStrip.heading}</h2>
-        <p>{homepage.articleStrip.copy}</p>
-        <ThrivePath variant="rule" />
-      </div>
+  <!-- ARTICLES -->
+  <section class="rb-sec article-strip">
+    <div class="rb-wrap">
+      <span class="rb-eyebrow">{homepage.articleStrip.eyebrow}</span>
+      <h2>{homepage.articleStrip.heading}</h2>
+      <p class="sub">{homepage.articleStrip.copy}</p>
       <div class="article-grid">
-        {recentArticles.map(article => (
-          <a href={`/blog/${article.slug}`} class="article-card">
-            <span>{article.data.pillar}</span>
+        {recentArticles.map((article, i) => (
+          <a href={`/blog/${article.slug}`} class={`article-card tone-${tones[i % tones.length]}`}>
+            <span class="pillar-tag">{article.data.pillar}</span>
             <h3>{article.data.title}</h3>
             <p>{article.data.description}</p>
           </a>
         ))}
       </div>
-      <div class="btn-row btn-row--center article-strip-actions">
-        <a href={homepage.articleStrip.primaryHref} class="btn btn--primary">{homepage.articleStrip.primaryCta}</a>
-        <a href={homepage.articleStrip.secondaryHref} class="btn btn--outline">{homepage.articleStrip.secondaryCta}</a>
+      <div class="rb-actions">
+        <a href={homepage.articleStrip.primaryHref} class="rb-btn">{homepage.articleStrip.primaryCta}</a>
+        <a href={homepage.articleStrip.secondaryHref} class="rb-link">{homepage.articleStrip.secondaryCta} &rarr;</a>
       </div>
     </div>
   </section>
 
-  <section class="final-banner">
-    <div class="final-banner__mark" aria-hidden="true"><ThrivePath variant="mark" /></div>
-    <div class="container">
-      <p class="eyebrow">{homepage.finalCta.eyebrow}</p>
+  <!-- FINAL -->
+  <section class="rb-cta">
+    <div class="rb-wrap">
+      <img class="stk c-washi" src="/images/stickers/washi-floral.png" alt="" />
+      <span class="rb-eyebrow lt">{homepage.finalCta.eyebrow}</span>
       <h2>{homepage.finalCta.heading}</h2>
-      <a href={homepage.finalCta.href} class="btn-white">{homepage.finalCta.cta}</a>
+      <a href={homepage.finalCta.href} class="rb-btn lime">{homepage.finalCta.cta}</a>
+      <img class="stk c-pig" src="/images/stickers/piggy-bank.png" alt="" />
     </div>
   </section>
-
+  </div>
 </Base>
 
 <script>
-  // Hero carousel
-  const hero = document.querySelector('[data-hero]');
-  const slides = Array.from(document.querySelectorAll('[data-hero-slide]'));
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (hero && slides.length > 1) {
-    let index = 0;
-    let timer;
-
-    const show = (next) => {
-      index = (next + slides.length) % slides.length;
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('is-active', i === index);
-        slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
-      });
-    };
-
-    const start = () => {
-      if (reduceMotion) return;
-      stop();
-      timer = window.setInterval(() => show(index + 1), 7000);
-    };
-    const stop = () => window.clearInterval(timer);
-
-    document.querySelector('[data-hero-prev]')?.addEventListener('click', () => { show(index - 1); start(); });
-    document.querySelector('[data-hero-next]')?.addEventListener('click', () => { show(index + 1); start(); });
-    hero.addEventListener('mouseenter', stop);
-    hero.addEventListener('mouseleave', start);
-    start();
-  }
-
   // Quick links horizontal scroll
   const track = document.querySelector('[data-quick-track]');
   if (track) {
@@ -287,757 +250,151 @@ const recentArticles = (await getCollection('articles', ({ data }) => !data.draf
   });
 </script>
 
-<style>
-/* Hero carousel */
-.hero-slider {
-  display: grid;
-  isolation: isolate;
-  min-height: clamp(460px, 62vh, 660px);
-  overflow: hidden;
-  position: relative;
-}
-
-.hero-slide {
-  align-items: end;
-  background-repeat: no-repeat;
-  color: #fff;
-  display: grid;
-  grid-area: 1 / 1;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.9s ease;
-}
-
-.hero-slide.is-active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.hero-slide__inner {
-  max-width: var(--max-width-wide);
-  padding-bottom: 210px;
-  text-align: center;
-}
-
-.hero-slide.is-active .hero-slide__inner > * {
-  animation: heroReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.hero-slide.is-active .hero-slide__tagline { animation-delay: 0.1s; }
-.hero-slide.is-active .hero-slide__copy { animation-delay: 0.2s; }
-.hero-slide.is-active .hero-slide__cta { animation-delay: 0.3s; }
-
-.hero-slide__quote {
-  color: #fff;
-  font-family: var(--font-sans);
-  font-size: clamp(36px, 5.4vw, 68px);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.06;
-  margin: 0 auto;
-  max-width: 900px;
-}
-
-.hero-slide__tagline {
-  color: rgba(255, 255, 255, 0.92);
-  font-size: clamp(18px, 2.4vw, 26px);
-  font-weight: 600;
-  margin: 18px 0 0;
-}
-
-.hero-slide__copy {
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 17px;
-  line-height: 1.7;
-  margin: 16px auto 0;
-  max-width: 620px;
-}
-
-.hero-slide__cta {
-  background: var(--color-accent);
-  border-radius: var(--radius);
-  color: #fff;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: 600;
-  margin-top: 28px;
-  padding: 15px 34px;
-  transition: background 0.35s ease;
-}
-
-.hero-slide__cta:hover {
-  background: #3f6f50;
-  color: #fff;
-}
-
-.hero-slider__controls {
-  bottom: 130px;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  left: 0;
-  position: absolute;
-  right: 0;
-  z-index: 4;
-}
-
-.hero-slider__controls button {
-  align-items: center;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 999px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 18px;
-  height: 42px;
-  justify-content: center;
-  transition: background 0.2s ease, color 0.2s ease;
-  width: 42px;
-}
-
-.hero-slider__controls button:hover {
-  background: #fff;
-  color: var(--color-dark);
-}
-
-/* Quick links bar (overlaps the hero) */
-.quicklinks {
-  margin-top: -84px;
-  position: relative;
-  z-index: 5;
-}
-
-.quicklinks__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  min-width: 0;
-}
-
-.quicklinks__main {
-  align-items: center;
-  background: var(--color-accent);
-  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-  color: #fff;
-  display: flex;
-  gap: 20px;
-  min-width: 0;
-  padding: 26px;
-}
-
-.quicklinks__label {
-  color: #fff;
-  flex-shrink: 0;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin: 0;
-  max-width: 150px;
-}
-
-.quicklinks__track {
-  display: flex;
-  flex: 1;
-  gap: 14px;
-  min-width: 0;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-}
-
-.quicklinks__track::-webkit-scrollbar {
-  display: none;
-}
-
-.quicklinks__item {
-  color: #fff;
-  display: grid;
-  flex: 0 0 auto;
-  font-size: 13px;
-  font-weight: 600;
-  gap: 8px;
-  justify-items: center;
-  line-height: 1.3;
-  text-align: center;
-  transition: opacity 0.35s ease;
-  width: 96px;
-}
-
-.quicklinks__item i {
-  font-size: 30px;
-}
-
-.quicklinks__item:hover {
-  color: #fff;
-  opacity: 0.78;
-}
-
-.quicklinks__controls {
-  display: flex;
-  flex-shrink: 0;
-  gap: 10px;
-}
-
-.quicklinks__controls button {
-  align-items: center;
-  background: rgba(255, 255, 255, 0.22);
-  border: none;
-  border-radius: 999px;
-  color: #fff;
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 18px;
-  height: 40px;
-  justify-content: center;
-  transition: background 0.2s ease, color 0.2s ease;
-  width: 40px;
-}
-
-.quicklinks__controls button:hover {
-  background: #fff;
-  color: var(--color-accent);
-}
-
-.quicklinks__aside {
-  background: var(--color-dark);
-  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-  color: #fff;
-  display: grid;
-  align-content: center;
-  gap: 14px;
-  padding: 26px 30px;
-}
-
-.quicklinks__aside p {
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.quicklinks__aside a {
-  align-items: center;
-  background: var(--color-accent-pale);
-  border-radius: var(--radius);
-  color: var(--color-dark);
-  display: inline-flex;
-  font-size: 14px;
-  font-weight: 600;
-  gap: 8px;
-  justify-content: center;
-  padding: 13px 20px;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.quicklinks__aside a:hover {
-  background: #fff;
-  color: var(--color-accent);
-}
-
-/* How can we help — tabs */
-.help-tabs {
-  background: #fff;
-  padding: 76px 0 88px;
-}
-
-.help-tabs__title {
-  font-size: clamp(30px, 4vw, 46px);
-  font-weight: 300;
-  letter-spacing: -0.025em;
-  margin-bottom: 26px;
-}
-
-.help-tabs__title strong {
-  font-weight: 700;
-}
-
-.help-tabs__nav {
-  border-bottom: 1px solid var(--color-border);
-  display: flex;
-  gap: 30px;
-  margin-bottom: 34px;
-}
-
-.help-tabs__tab {
-  background: none;
-  border: none;
-  border-bottom: 3px solid transparent;
-  color: var(--color-text-muted);
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: -1px;
-  padding: 0 2px 14px;
-  transition: color 0.35s ease, border-color 0.35s ease;
-}
-
-.help-tabs__tab.is-active {
-  border-bottom-color: var(--color-accent);
-  color: var(--color-accent);
-}
-
-.help-tabs__panel {
-  display: none;
-  gap: 40px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.help-tabs__panel.is-active {
-  display: grid;
-}
-
-.help-card {
-  border-top: 1px solid var(--color-border);
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  padding-top: 22px;
-  transition: border-color 0.35s ease;
-}
-
-.help-card:hover {
-  border-top-color: var(--color-accent);
-  color: inherit;
-}
-
-.help-card h3 {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 10px;
-}
-
-.help-card p {
-  color: var(--color-text-muted);
-  font-size: 14px;
-  line-height: 1.65;
-  margin-bottom: 16px;
-}
-
-.help-card span {
-  color: var(--color-accent);
-  font-size: 13px;
-  font-weight: 600;
-  margin-top: auto;
-}
-
-.proof-band {
-  background: linear-gradient(180deg, #ffffff 0%, #f7faf8 100%);
-  border-bottom: 1px solid var(--color-border);
-  padding: 28px 0;
-}
-
-.proof-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-.proof-grid div {
-  border-left: 3px solid rgba(214, 189, 120, 0.72);
-  padding-left: 16px;
-}
-
-.proof-grid strong {
-  color: var(--color-dark);
-  display: block;
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-}
-
-.proof-grid span {
-  color: var(--color-text-muted);
-  font-size: 13px;
-}
-
-.journey,
-.decision-section,
-.guide-section,
-.pathway-section,
-.article-strip {
-  padding: 104px 0;
-}
-
-.journey,
-.guide-section {
-  background: var(--color-bg);
-}
-
-.section-heading {
-  margin: 0 auto 46px;
-  max-width: 720px;
-  position: relative;
-  text-align: center;
-}
-
-.section-heading.compact {
-  max-width: 650px;
-}
-
-.section-heading h2,
-.decision-card h2,
-.guide-grid h2,
-.final-banner h2 {
-  font-size: clamp(32px, 4.6vw, 54px);
-  letter-spacing: -0.028em;
-  line-height: 1.1;
-}
-
-.section-heading p:not(.eyebrow) {
-  color: var(--color-text-muted);
-  font-size: 17px;
-  line-height: 1.7;
-  margin-top: 18px;
-}
-
-.journey__path {
-  margin-bottom: -18px;
-}
-
-.journey-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px;
-}
-
-.journey-grid article {
-  border-top: 1px solid var(--color-border);
-  padding-top: 22px;
-}
-
-.journey__step {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.journey-grid h3,
-.article-card h3 {
-  color: var(--color-dark);
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  margin: 12px 0 10px;
-}
-
-.journey-grid p,
-.decision-card p,
-.guide-copy p,
-.article-card p {
-  color: var(--color-text-muted);
-  line-height: 1.75;
-}
-
-.decision-section {
-  background: #fff;
-}
-
-.pathway-section {
-  background: #fff;
-}
-
-.door-grid {
-  display: grid;
-  gap: 44px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.door {
-  border-top: 2px solid var(--color-accent);
-  color: inherit;
-  display: block;
-  padding-top: 22px;
-}
-
-.door__label {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.door h3 {
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  margin: 12px 0 10px;
-}
-
-.door p {
-  color: var(--color-text-muted);
-  font-size: 16px;
-  line-height: 1.75;
-  margin-bottom: 14px;
-}
-
-.door__link {
-  color: var(--color-accent);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.decision-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-}
-
-.decision-card {
-  border-radius: var(--radius-lg);
-  padding: 42px;
-}
-
-.decision-card.primary {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(237, 245, 239, 0.94)),
-    var(--color-accent-pale);
-  border: 1px solid rgba(79, 129, 95, 0.24);
-}
-
-.decision-card.dark {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 46%),
-    var(--color-dark);
-  border: 1px solid rgba(214, 189, 120, 0.2);
-}
-
-.decision-card.dark h2,
-.decision-card.dark p {
-  color: #fff;
-}
-
-.decision-card p {
-  font-size: 17px;
-  margin: 18px 0 28px;
-}
-
-.btn--dark {
-  background: #fff;
-  color: var(--color-dark);
-}
-
-.btn--dark:hover {
-  background: var(--color-accent);
-  color: #fff;
-}
-
-.guide-grid {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 58px;
-  align-items: start;
-}
-
-.guide-copy {
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 34px;
-}
-
-.text-link {
-  color: var(--color-accent);
-  display: inline-block;
-  font-weight: 600;
-  margin-top: 10px;
-}
-
-.article-strip {
-  background: #fff;
-}
-
-.article-strip-actions {
-  margin-top: 32px;
-}
-
-.article-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.article-grid {
-  gap: 44px;
-}
-
-.article-card {
-  border-top: 1px solid var(--color-border);
-  color: inherit;
-  display: block;
-  padding-top: 22px;
-  transition: border-color 0.35s ease;
-}
-
-.article-card:hover {
-  border-top-color: var(--color-accent);
-  color: inherit;
-}
-
-.article-card span {
-  color: var(--color-accent);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.final-banner {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 44%),
-    var(--color-accent);
-  overflow: hidden;
-  padding: 84px 0;
-  position: relative;
-  text-align: center;
-}
-
-.final-banner__mark {
-  bottom: -22px;
-  color: rgba(255, 255, 255, 0.25);
-  pointer-events: none;
-  position: absolute;
-  right: -40px;
-  width: min(400px, 42%);
-}
-
-.final-banner .container {
-  position: relative;
-  z-index: 1;
-}
-
-.final-banner .eyebrow,
-.final-banner h2 {
-  color: #fff;
-}
-
-.final-banner h2 {
-  margin: 0 auto 30px;
-  max-width: 760px;
-}
-
-.btn-white {
-  background: #fff;
-  border-radius: var(--radius);
-  color: var(--color-accent);
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 18px 34px;
-  position: relative;
-}
-
-.btn-white:hover {
-  background: #f4f4f4;
-  color: var(--color-accent);
-}
-
-@media (max-width: 1024px) {
-  .quicklinks__inner {
-    grid-template-columns: 1fr;
-  }
-
-  .quicklinks__main {
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  }
-
-  .quicklinks__aside {
-    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-    grid-auto-flow: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .help-tabs__panel.is-active {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 900px) {
-  .decision-grid,
-  .guide-grid,
-  .article-grid,
-  .door-grid,
-  .journey-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .journey__path {
-    display: none;
-  }
-
-  .proof-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .hero-slide__inner {
-    padding-bottom: 60px;
-  }
-
-  .hero-slider__controls {
-    bottom: 24px;
-  }
-
-  .quicklinks {
-    margin-top: 28px;
-  }
-}
-
-@media (max-width: 640px) {
-  .quicklinks__main {
-    flex-wrap: wrap;
-    gap: 16px;
-    padding: 22px;
-  }
-
-  .quicklinks__label {
-    font-size: 19px;
-    max-width: none;
-    width: 100%;
-  }
-
-  .quicklinks__controls {
-    display: none;
-  }
-
-  .help-tabs__panel.is-active {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 560px) {
-  .proof-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .decision-card,
-  .guide-copy {
-    padding: 26px;
-  }
-}
-
-@keyframes heroReveal {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-slide.is-active .hero-slide__inner > * {
-    animation: none;
-  }
-
-  .hero-slide {
-    transition: none;
-  }
-}
+<style is:global>
+.rb {
+  --paper: #f8f5ee; --ink: #1f2a24; --forest: #183028; --sage: #4f815f; --lime: #dfeeb4;
+  --butter: #f4efbd; --blue: #cfe0f1; --blush: #f6d9e0; --gold: #d6bd78; --line: #dcd8cc;
+  --serif: 'Fraunces', Georgia, serif;
+  background: var(--paper) radial-gradient(circle at 18% 12%, rgba(223,238,180,.35), transparent 40%);
+  color: var(--ink); font-family: 'Albert Sans', system-ui, sans-serif; overflow: hidden;
+}
+.rb * { box-sizing: border-box; }
+.rb-wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; position: relative; }
+.rb h1, .rb h2, .rb h3 { color: var(--forest); font-weight: 700; letter-spacing: -.02em; line-height: 1.06; margin: 0; }
+.rb h1 { font-size: clamp(40px, 6vw, 72px); margin: 22px 0 22px; }
+.rb h2 { font-size: clamp(30px, 4vw, 48px); margin: 12px 0 14px; max-width: 760px; }
+.rb h3 { font-size: 22px; letter-spacing: -.01em; }
+.rb .mark { background: var(--lime); padding: 0 .18em; margin: 0 -.05em; box-decoration-break: clone; -webkit-box-decoration-break: clone; border-left: 2px solid var(--sage); border-right: 2px solid var(--sage); }
+.rb .mark i { font-style: italic; font-weight: 600; }
+.rb-eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--sage); }
+.rb .sub, .rb .lede { font-size: 19px; color: #4a554f; max-width: 560px; margin: 0; }
+.rb-sec { padding: 96px 0; }
+.rb-hero { padding: 40px 0 88px; }
+.rb-hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
+.rb-meta { display: flex; justify-content: space-between; font-size: 14px; max-width: 520px; }
+.rb-meta b { color: var(--sage); }
+.rb-actions { display: flex; gap: 22px; align-items: center; margin: 30px 0 8px; }
+.rb-btn { background: var(--forest); color: #fff !important; padding: 14px 22px; border-radius: 10px; font-weight: 600; font-size: 15px; display: inline-block; }
+.rb-btn.dark { background: var(--forest); }
+.rb-link { color: var(--forest); font-weight: 600; border-bottom: 1px solid var(--sage); }
+.rb-photo { position: relative; }
+.rb-photo > img:first-child { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; display: block; box-shadow: 0 24px 40px -24px rgba(24,48,40,.45); }
+.tape { position: absolute; width: 130px; height: 34px; top: -14px; left: 36px; transform: rotate(-6deg);
+  background: repeating-linear-gradient(90deg, #f6c98a 0 14px, #fff8ea 14px 28px), #f6c98a; opacity: .92;
+  -webkit-mask: radial-gradient(circle at 0 50%, transparent 3px, #000 3.5px) left/100% 100%; }
+.tape::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.55) 0 14px, transparent 14px 28px); mix-blend-mode: soft-light; }
+.gingham-star { position: absolute; right: -22px; bottom: 56px; width: 78px; height: 78px; transform: rotate(10deg);
+  background: conic-gradient(from 0deg at 50% 50%, #2f5d9c33 0 25%, transparent 0 50%, #2f5d9c33 0 75%, transparent 0) 0 0/12px 12px, #fff;
+  background-color: #cfe0f1;
+  clip-path: polygon(50% 0, 62% 34%, 98% 36%, 70% 58%, 80% 94%, 50% 72%, 20% 94%, 30% 58%, 2% 36%, 38% 34%);
+  filter: drop-shadow(0 6px 6px rgba(0,0,0,.18)); }
+.sticker-note { position: absolute; left: -18px; bottom: 28px; background: var(--butter); padding: 10px 16px; font-size: 14px; font-weight: 600; color: var(--forest); transform: rotate(-3deg); border-radius: 4px; box-shadow: 0 6px 12px -6px rgba(0,0,0,.25); }
+.rb-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 44px; border-top: 1px solid var(--line); }
+.rb-steps article { padding: 28px 28px 8px 0; border-right: 1px solid var(--line); margin-right: 28px; }
+.rb-steps article:last-child { border: 0; margin: 0; }
+.rb-steps .num, .pillar .num { font-size: 13px; font-weight: 700; color: var(--sage); display: block; margin-bottom: 14px; }
+.rb-steps h3 { margin: 6px 0 10px; }
+.rb-steps p { margin: 0; color: #4a554f; }
+.rb-quote { padding: 40px 0 96px; background: linear-gradient(var(--paper), #eef0e2); }
+.stamp { max-width: 640px; margin: 0 auto; background: var(--butter); text-align: center; padding: 56px 48px;
+  -webkit-mask: radial-gradient(circle 11px at 11px 11px, transparent 98%, #000) -11px -11px / 44px 44px; border-radius: 4px;
+  --m: radial-gradient(circle 9px at 50% 0, #0000 98%, #000) 0 0/36px 100% repeat-x; }
+.stamp { mask: none; -webkit-mask: none; border: 14px solid var(--paper); outline: 2px dashed rgba(24,48,40,.18); outline-offset: -8px; box-shadow: 0 20px 40px -24px rgba(24,48,40,.4); border-radius: 18px; }
+.flower { color: #86a8cf; font-size: 26px; display: block; }
+.serif-q { font-family: var(--serif); font-size: clamp(34px, 5vw, 54px); line-height: 1.05; color: #2c2410; margin: 14px 0 20px; font-weight: 400; }
+.serif-q em { font-style: italic; }
+.chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 22px; }
+.chips span { background: var(--blue); padding: 6px 14px; font-weight: 600; color: var(--forest); font-size: 15px; }
+.chips .c1 { transform: rotate(-3deg); } .chips .c2 { transform: rotate(2deg); } .chips .c3 { transform: rotate(-1.5deg); }
+.stamp-copy { max-width: 440px; margin: 0 auto 16px; color: #4a4330; }
+.rb-pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+.pillar { padding: 26px 22px 22px; border-radius: 12px; display: flex; flex-direction: column; min-height: 230px; color: var(--ink); transition: transform .5s ease; }
+.pillar.blush { background: var(--blush); } .pillar.lime { background: var(--lime); }
+.pillar.butter { background: var(--butter); } .pillar.blue { background: var(--blue); }
+.pillar p { color: #3f4a44; margin: 8px 0 auto; font-size: 15px; }
+.pillar .go { font-weight: 700; font-size: 14px; color: var(--forest); margin-top: 18px; }
+.rb-cta { background: var(--forest); color: #fff; padding: 88px 0; text-align: center; position: relative; }
+.rb-cta h2 { color: #fff; margin: 0 auto 12px; }
+.rb-cta .mark { color: var(--forest); }
+.rb-cta p { color: #bcd6c4; margin: 0 0 26px; }
+.rb-cta .rb-btn { background: var(--lime); color: var(--forest) !important; }
+.washi { display: block; width: 150px; height: 30px; margin: 0 auto 28px; transform: rotate(-3deg);
+  background: repeating-linear-gradient(90deg, #f6c98a 0 14px, #fff8ea 14px 28px); opacity: .9; }
+
+.stk { position: absolute; pointer-events: none; filter: drop-shadow(0 6px 6px rgba(24,48,40,.22)); }
+.s-washi { width: 150px; top: -16px; left: 30px; transform: rotate(-6deg); }
+.s-star { width: 84px; right: -26px; bottom: 70px; transform: rotate(10deg); }
+.s-bow { width: 74px; left: -22px; top: 40%; transform: rotate(-12deg); }
+.j-clip { width: 64px; right: 24px; top: -8px; transform: rotate(8deg); }
+.stamp { position: relative; }
+.q-flower { width: 70px; left: 50%; margin-left: -35px; top: 18px; position: absolute; }
+.stamp .serif-q { margin-top: 62px; }
+.q-daisy { width: 96px; right: -34px; bottom: -26px; transform: rotate(14deg); }
+.q-pin { width: 64px; left: -18px; top: -22px; transform: rotate(-20deg); }
+.c-washi { position: static; display: block; width: 190px; margin: 0 auto 26px; transform: rotate(-3deg); }
+.c-pig { width: 100px; right: 3%; bottom: -40px; transform: rotate(8deg); }
+.rb-sec .rb-wrap { position: relative; }
+@media (max-width: 860px) {
+  .rb-hero-grid, .rb-steps { grid-template-columns: 1fr; }
+  .rb-pillars { grid-template-columns: 1fr 1fr; }
+  .rb-steps article { border: 0; margin: 0; border-bottom: 1px solid var(--line); }
+}
+
+.rb .rel { position: relative; }
+.rb-hero-grid h1 { max-width: 640px; }
+.rb-meta b { font-weight: 600; font-size: 13px; }
+.rb-btn.lime { background: var(--lime); color: var(--forest) !important; }
+.rb-eyebrow.lt { color: var(--lime); }
+.rb-photo__img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; display: block; box-shadow: 0 24px 40px -24px rgba(24,48,40,.45); }
+.rb .quicklinks { padding: 10px 0 20px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.4); }
+.rb .quicklinks__inner { display: flex; align-items: center; gap: 18px; }
+.rb .quicklinks__label { margin: 0; font-weight: 700; color: var(--forest); white-space: nowrap; }
+.rb .quicklinks__track { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; flex: 1; padding: 10px 0 0; }
+.rb .quicklinks__track::-webkit-scrollbar { display: none; }
+.rb .quicklinks__item { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: #fff; border: 1px solid var(--line); white-space: nowrap; font-weight: 600; font-size: 14px; color: var(--forest); }
+.rb .quicklinks__item:hover { border-color: var(--sage); }
+.rb .quicklinks__controls { display: flex; gap: 6px; padding-top: 10px; }
+.rb .quicklinks__controls button { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: #fff; cursor: pointer; color: var(--forest); }
+.step-photo { aspect-ratio: 16/10; border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
+.step-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rb-steps article { padding-top: 28px; }
+.help-tabs { padding: 40px 0 88px; }
+.help-tabs__title { font-size: clamp(28px, 3.6vw, 42px); margin: 0 0 24px; }
+.help-tabs__nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.help-tabs__tab { font: inherit; font-weight: 600; font-size: 15px; padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--forest); cursor: pointer; }
+.help-tabs__tab.is-active { background: var(--forest); color: #fff; border-color: var(--forest); }
+.help-tabs__panel { display: none; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.help-tabs__panel.is-active { display: grid; }
+.help-card, .door, .article-card { padding: 26px 24px; border-radius: 12px; color: var(--ink); display: flex; flex-direction: column; gap: 8px; }
+.help-card p, .door p, .article-card p { margin: 0; color: #3f4a44; font-size: 15px; }
+.help-card > span, .door__link { margin-top: auto; padding-top: 14px; font-weight: 700; font-size: 14px; color: var(--forest); }
+.tone-blush { background: var(--blush); } .tone-lime { background: var(--lime); } .tone-butter { background: var(--butter); } .tone-blue { background: var(--blue); }
+.proof-band { background: var(--forest); color: #fff; padding: 44px 0; }
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 24px; text-align: center; }
+.proof-grid strong { display: block; font-size: 38px; letter-spacing: -.02em; color: var(--lime); }
+.proof-grid span { color: #bcd6c4; font-size: 14px; }
+.door-grid, .article-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 40px; }
+.door__label { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--sage); }
+.pillar-tag { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--forest); }
+.article-card h3 { font-size: 20px; }
+.decision-section { padding: 32px 0 88px; }
+.decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.decision-card { padding: 44px 40px; border-radius: 12px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.decision-card.primary { background: var(--lime); }
+.decision-card.dark { background: var(--forest); color: #fff; }
+.decision-card.dark h2 { color: #fff; }
+.decision-card.dark .rb-eyebrow { color: var(--lime); }
+.decision-card.dark p { color: #bcd6c4; }
+.decision-card.dark .rb-btn { background: var(--lime); color: var(--forest) !important; }
+.decision-card h2 { margin: 0; font-size: clamp(26px, 3vw, 36px); }
+.decision-card p { margin: 0; max-width: 460px; }
+.guide-section { padding: 24px 0 96px; }
+.guide-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; border-top: 1px solid var(--line); padding-top: 56px; }
+.guide-copy p { margin: 0 0 16px; color: #3f4a44; font-size: 17px; }
+.article-strip { background: #f0eee2; }
+.article-strip .rb-actions { margin-top: 36px; }
+.rb-cta .rb-wrap { position: relative; }
+.rb-cta .rb-eyebrow { display: block; margin-bottom: 12px; }
+.rb-cta .rb-btn { margin-top: 20px; }
+@media (max-width: 860px) { .decision-grid, .guide-grid { grid-template-columns: 1fr; } .rb .quicklinks__inner { flex-wrap: wrap; } }
 </style>
