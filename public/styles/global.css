@@ -998,3 +998,91 @@ em { font-style: italic; }
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ==========================================================================
+   Rebrand layer (Oct 2026): linen paper, lime marker, scrapbook stickers,
+   Fraunces for pull quotes only. Albert Sans stays the one working typeface.
+   ========================================================================== */
+body { background: var(--color-bg); color: var(--color-text); }
+h1, h2, h3 { color: var(--color-heading); letter-spacing: -0.02em; }
+
+/* Buttons */
+.btn { border-radius: var(--radius); }
+.btn--primary { background: var(--color-dark); color: #fff; }
+.btn--primary:hover { background: var(--color-accent); color: #fff; }
+.btn--outline { border-color: rgba(24, 48, 40, 0.3); }
+.btn--outline:hover { background: var(--color-lime); border-color: var(--color-lime); color: var(--color-heading); }
+.section-kicker, .eyebrow { color: var(--color-accent); }
+
+/* Heroes: dark photo band -> linen page with a framed photo and tape */
+.authority-hero, .pathway-hero, .result-hero, .check-hero, .resource-hero {
+  --hero-photo: url('/images/intentional-thrive-planning.png');
+  background:
+    radial-gradient(circle at 12% 0%, rgba(223, 238, 180, 0.55), transparent 46%),
+    var(--color-bg) !important;
+  color: var(--color-text) !important;
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  overflow: clip;
+}
+.pathway-hero { --hero-photo: url('/images/hero-build.jpg'); }
+.result-hero { --hero-photo: url('/images/hero-decide.jpg'); }
+.check-hero { --hero-photo: url('/images/hero-understand.jpg'); }
+.authority-hero h1, .authority-hero .eyebrow, .pathway-hero h1, .result-hero h1, .check-hero h1, .resource-hero h1 {
+  color: var(--color-heading) !important;
+  font-size: clamp(2.2rem, 5.2vw, 4.1rem) !important;
+  line-height: 1.05;
+  max-width: 660px !important;
+}
+.authority-hero__copy, .pathway-hero p, .result-hero p, .check-hero p, .resource-hero p {
+  color: #4a554f !important;
+}
+.authority-hero .container--wide, .pathway-hero .container--wide, .result-hero .container--wide,
+.resource-hero .container--wide, .authority-hero .container { position: relative; z-index: 1; }
+.pathway-hero .btn--outline, .result-hero .btn--outline, .check-hero .btn--outline, .resource-hero .btn--outline {
+  border-color: rgba(24, 48, 40, 0.3) !important; color: var(--color-heading) !important;
+}
+.authority-hero .section-kicker, .pathway-hero .section-kicker, .result-hero .section-kicker,
+.check-hero .section-kicker, .resource-hero .section-kicker, .pathway-hero .eyebrow, .result-hero .eyebrow,
+.check-hero .eyebrow, .resource-hero .eyebrow { color: var(--color-accent) !important; }
+@media (min-width: 960px) {
+  .authority-hero::after, .pathway-hero::after, .result-hero::after, .resource-hero::after {
+    content: ''; position: absolute; right: max(24px, calc((100vw - 1120px) / 2 + 24px)); top: 50%;
+    width: 290px; height: 340px; transform: translateY(-50%) rotate(2deg);
+    background: var(--hero-photo) center / cover; border-radius: 12px;
+    box-shadow: 0 24px 40px -24px rgba(24, 48, 40, 0.5);
+  }
+  .authority-hero::before, .pathway-hero::before, .result-hero::before, .resource-hero::before {
+    content: ''; position: absolute; z-index: 2; right: max(24px, calc((100vw - 1120px) / 2 + 24px)); top: calc(50% - 190px);
+    margin-right: 90px; width: 140px; height: 38px; transform: rotate(-7deg);
+    background: url('/images/stickers/washi-orange.png') center / contain no-repeat;
+    filter: drop-shadow(0 4px 4px rgba(24, 48, 40, 0.2));
+  }
+}
+.check-hero__panel { background: var(--color-butter) !important; color: var(--color-text) !important; border: 0 !important; box-shadow: 0 20px 36px -22px rgba(24, 48, 40, 0.4); }
+
+/* Sections and cards */
+.section-block--white { background: #fbfaf5; }
+.hub-card, .card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+.hub-card:nth-child(4n+1) { background: var(--color-blush); border-color: transparent; }
+.hub-card:nth-child(4n+2) { background: var(--color-lime); border-color: transparent; }
+.hub-card:nth-child(4n+3) { background: var(--color-butter); border-color: transparent; }
+.hub-card:nth-child(4n+4) { background: var(--color-blue); border-color: transparent; }
+.hub-card:hover { box-shadow: none; border-color: var(--color-accent); }
+.pill, .card__tag { background: var(--color-lime); color: var(--color-heading); }
+
+/* Articles: serif pull quotes, marker links */
+.prose blockquote, .article-body blockquote {
+  font-family: var(--font-display); font-style: italic; font-size: 1.5rem; line-height: 1.35;
+  color: #2c2410; background: var(--color-butter); border: 0; border-radius: var(--radius-lg);
+  padding: 1.6rem 1.8rem; margin: 2rem 0;
+}
+.prose h2 { letter-spacing: -0.02em; }
+.prose a { text-decoration-color: var(--color-lime); text-decoration-thickness: 3px; text-underline-offset: 3px; }
+.article-header { background: radial-gradient(circle at 10% 0%, rgba(223, 238, 180, 0.5), transparent 50%), var(--color-bg); }
+
+/* Footer */
+.footer { background: var(--color-dark); color: #bcd6c4; }
+.footer__links a { color: #bcd6c4; }
+.footer__links a:hover { color: var(--color-lime); }
+.footer__tagline { opacity: 0.85; }
